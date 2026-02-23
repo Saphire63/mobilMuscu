@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ExercicePage
+package com.example.muscuapp_vmob_1.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.unit.dp
+import com.example.muscuapp_vmob_1.components.ExerciceCard
 import com.example.muscuapp_vmob_1.components.SearchBar
 import com.example.muscuapp_vmob_1.model.machines
 
