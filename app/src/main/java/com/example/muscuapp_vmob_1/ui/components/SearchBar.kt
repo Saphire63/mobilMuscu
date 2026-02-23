@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.components
+package com.example.muscuapp_vmob_1.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

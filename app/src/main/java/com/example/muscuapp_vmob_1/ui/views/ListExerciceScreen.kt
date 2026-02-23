@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.views
+package com.example.muscuapp_vmob_1.ui.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,8 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.muscuapp_vmob_1.model.deserializeMachinesFromJson
-import com.example.muscuapp_vmob_1.components.ExerciceCard
-import com.example.muscuapp_vmob_1.components.SearchBar
+import com.example.muscuapp_vmob_1.ui.components.ExerciceCard
+import com.example.muscuapp_vmob_1.ui.components.SearchBar
 
 
 @Composable

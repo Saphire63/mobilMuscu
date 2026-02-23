@@ -10,9 +10,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.muscuapp_vmob_1.views.ListExercice
-import com.example.muscuapp_vmob_1.components.AppTopBar
-import com.example.muscuapp_vmob_1.components.AppBottomBar
+import com.example.muscuapp_vmob_1.ui.views.ListExercice
+import com.example.muscuapp_vmob_1.ui.components.AppTopBar
+import com.example.muscuapp_vmob_1.ui.components.AppBottomBar
 @Composable
 fun AppNavigation(){
     val navController = rememberNavController()

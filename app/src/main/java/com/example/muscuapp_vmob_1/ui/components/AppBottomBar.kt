@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.components
+package com.example.muscuapp_vmob_1.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
