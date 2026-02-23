@@ -11,7 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.muscuapp_vmob_1.model.deserializeMachinesFromJson
+import com.example.muscuapp_vmob_1.data.repository.Exercices.MachineFichierRepository
 import com.example.muscuapp_vmob_1.ui.components.ExerciceCard
 import com.example.muscuapp_vmob_1.ui.components.SearchBar
 
@@ -20,7 +20,8 @@ import com.example.muscuapp_vmob_1.ui.components.SearchBar
 fun ListExercice(innerPaddingValues: PaddingValues){
     SearchBar()
     val context = LocalContext.current
-    val machines = remember { deserializeMachinesFromJson(context) }
+    val repository = MachineFichierRepository(context)
+    val machines = remember { repository.getMachine()}
 
     LazyColumn(
         modifier = Modifier
