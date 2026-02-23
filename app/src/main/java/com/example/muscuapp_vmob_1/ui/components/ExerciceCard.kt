@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ExercicePage
+package com.example.muscuapp_vmob_1.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

@@ -13,10 +13,3 @@ data class Machine(
     val weight: Int= 0,
     val description: String = "",
 )
-
-//ici j'ai utilisé Gemini pour m'aider à comprendre la fonction de loading,
-// et de changer quelques lignes dans le fichier app.gradle.kts et libs.versions.toml
-fun  deserializeMachinesFromJson(context: Context): List<Machine> {
-    val jsonString = context.assets.open("machines.json").bufferedReader().use { it.readText() }
-    return Json.decodeFromString<List<Machine>>(jsonString)
-}
