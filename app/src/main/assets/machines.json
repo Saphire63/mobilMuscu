@@ -4,20 +4,27 @@
     "max": 100,
     "percentage": 70,
     "weight": 70,
-    "description": "Machine pour les pectoraux. imagines 🤔 tu veux téléphoner ☎️ à ton oncle ⛹️󠀂♂️ mais en fait tu te trompes 😱 et tu téléphones à ton ongle 💅 ptdr 🤣. c'est ton pied qui décroche 🤙 🦶 en mode oui ? allo ? 💁󠀂♀️ et toi t'es la 🙂 mais watzeufeuk 🤯 ça pue des pieds 🤢 c'est quoi ce délire 🤪 ça serait abusé je trouve 🐒"
+    "description": "Machine pour les pectoraux."
+  },
+  {
+    "name": "Squat",
+    "max": 200,
+    "percentage": 50,
+    "weight": 100,
+    "description": "Pour travailler les fessiers pour être au top au carnaval de Rio 🎭🇧🇷🔥"
   },
   {
     "name": "Leg Press",
     "max": 200,
     "percentage": 50,
     "weight": 100,
-    "description": "Travail des jambes. Tes paupières sont lourde comme l'enfer et ta bite tendue comme les cornes de Belzébuth ! MEETAAAAAAAAAALL"
+    "description": "Des jambes solides pour suivre le rythme de la samba sans s’écrouler après 10 minutes 💃🇧🇷🥁"
   },
   {
     "name": "Tirage dorsal",
     "max": 48,
     "percentage": 50,
     "weight": 24,
-    "description": "Travail des muscles du dos. Uniquement pour les mecs bourrés de TESTOO. Vive le chaos 😈. Paris sportif 🎯, E-sport 🎮, casino en ligne 🎰, Twitch 🚫 = arnaque 💸, match fixé 🎭. Salut ✋, l'enfer n'existe pas 🔥, n'aie pas peur de la mort 💀 et tu seras plus fort 💪. Ouvre ton robinet 🚰 tous les soirs 🌙 et ne l'éteins jamais ❌. Ajoute de l'eau de javel 🧴 à la nourriture 🍽️ et jette-la dans la forêt 🌲 et dans la mer 🌊 avec le plastique 🛍️, l'argent viendra 💵. Je détruis le monde 🌍, tu peux m'aider 🤝"
+    "description": "Pour travailler le dos"
   }
 ]
