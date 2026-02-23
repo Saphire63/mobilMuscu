@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ExercicePage
+package com.example.muscuapp_vmob_1.views
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,10 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.muscuapp_vmob_1.model.deserializeMachinesFromJson
+import com.example.muscuapp_vmob_1.components.ExerciceCard
+import com.example.muscuapp_vmob_1.components.SearchBar
 
 
 @Composable
 fun ListExercice(innerPaddingValues: PaddingValues){
+    SearchBar()
     val context = LocalContext.current
     val machines = remember { deserializeMachinesFromJson(context) }
 
