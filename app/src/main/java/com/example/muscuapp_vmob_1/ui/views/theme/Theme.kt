@@ -1,6 +1,5 @@
-package com.example.muscuapp_vmob_1.ui.theme
+package com.example.muscuapp_vmob_1.ui.views.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

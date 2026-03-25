@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.theme
+package com.example.muscuapp_vmob_1.ui.views.theme
 
 import androidx.compose.ui.graphics.Color
 

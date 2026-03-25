@@ -12,8 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.muscuapp_vmob_1.data.repository.Exercices.MachineFichierRepository
-import com.example.muscuapp_vmob_1.ui.components.ExerciceCard
-import com.example.muscuapp_vmob_1.ui.components.SearchBar
+import com.example.muscuapp_vmob_1.ui.views.components.ExerciceCard
+import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 
 
 @Composable
