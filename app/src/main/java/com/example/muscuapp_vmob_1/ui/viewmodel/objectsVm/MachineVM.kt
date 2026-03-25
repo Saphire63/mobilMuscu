@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.viewmodel
+package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm
 
 import com.example.muscuapp_vmob_1.model.Machine
 
