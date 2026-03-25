@@ -1,9 +1,6 @@
 package com.example.muscuapp_vmob_1.model
 
 import kotlinx.serialization.Serializable
-import android.content.Context
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class Machine(

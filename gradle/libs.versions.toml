@@ -9,8 +9,10 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
 navigationCompose = "2.9.7"
-kotlinxSerializationJson = "1.6.3"
-
+kotlinxSerializationJson = "1.10.0"
+roomVersion="2.8.4"
+daggerHiltVersion = "2.51.1"
+hiltNavigationComposeVersion = "1.2.0"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -31,8 +33,18 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion"}
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion"}
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion"}
+
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHiltVersion" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHiltVersion" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "daggerHiltVersion" }
