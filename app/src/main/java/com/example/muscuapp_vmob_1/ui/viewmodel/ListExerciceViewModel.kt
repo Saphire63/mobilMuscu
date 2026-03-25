@@ -1,5 +1,6 @@
-package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm
+package com.example.muscuapp_vmob_1.ui.viewmodel
 
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.data.repository.Exercices.MachinesRepository
