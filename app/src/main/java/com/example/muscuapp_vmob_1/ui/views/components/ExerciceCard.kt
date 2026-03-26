@@ -21,9 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.muscuapp_vmob_1.model.Machine
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
 
 @Composable
-fun ExerciceCard(machine: Machine) {
+fun ExerciceCard(machine: MachineVM) {
     var expanded by remember { mutableStateOf(false) }
 
     Column(
@@ -59,7 +60,7 @@ fun ExerciceCard(machine: Machine) {
                 )
 
                 Text(
-                    text = "${machine.percentage}%    ${machine.weight} kg",
+                    text = "${"input"}%    ${"calcul correspondant"} kg",
                     color = Color.LightGray
                 )
             }

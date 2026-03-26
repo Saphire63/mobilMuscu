@@ -8,10 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.items
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.muscuapp_vmob_1.data.repository.Exercices.MachineFichierRepository
+import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciceViewModel
 import com.example.muscuapp_vmob_1.ui.views.components.ExerciceCard
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 
@@ -19,9 +23,8 @@ import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 @Composable
 fun ListExercice(innerPaddingValues: PaddingValues){
     SearchBar()
-    val context = LocalContext.current
-    val repository = MachineFichierRepository(context)
-    val machines = remember { repository.getMachine()}
+    val viewModel: ListExerciceViewModel = hiltViewModel()
+    val machines by viewModel.machines.collectAsState()
 
     LazyColumn(
         modifier = Modifier
