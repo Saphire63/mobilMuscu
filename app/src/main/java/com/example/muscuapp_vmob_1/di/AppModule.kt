@@ -1,8 +1,8 @@
 package com.example.muscuapp_vmob_1.di
 
 import android.content.Context
-import com.example.muscuapp_vmob_1.data.repository.Exercices.MachineFichierRepository
-import com.example.muscuapp_vmob_1.data.repository.Exercices.MachinesRepository
+import com.example.muscuapp_vmob_1.data.repository.exercices.MachineFichierRepository
+import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ object AppModule {
     @Singleton
     fun provideMachineRepository(
         @ApplicationContext context: Context
-    ): MachinesRepository {
+    ): MachineRepository {
         return MachineFichierRepository(context)
     }
 }

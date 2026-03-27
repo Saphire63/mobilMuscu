@@ -1,7 +1,7 @@
-package com.example.muscuapp_vmob_1.data.repository.Exercices
+package com.example.muscuapp_vmob_1.data.repository.exercices
 
 import android.content.Context
-import com.example.muscuapp_vmob_1.domain.model.Machine
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,25 +10,32 @@ import javax.inject.Inject
 
 class MachineFichierRepository @Inject constructor (
     @ApplicationContext private val context: Context
-) : MachinesRepository {
+) : MachineRepository {
 
-    override fun getMachine(): Flow<List<Machine>> = flow {
+    override fun getMachines(): Flow<List<MachineVM>> = flow {
         val jsonString = context.assets
             .open("machines.json")
             .bufferedReader()
             .use { it.readText() }
 
-        val machines = Json.decodeFromString<List<Machine>>(jsonString)
+        val machines = Json.decodeFromString<List<MachineVM>>(jsonString)
 
         emit(machines)
     }
 
-
-    override fun deleteMachine(id: Int): Int {
+    override suspend fun getMachine(id: Int): MachineVM {
         TODO("Not yet implemented")
     }
 
-    override fun addMachine(machine: Machine): Int {
-        TODO("Not yet implemented") //edit a voir sur diapo 69
+    override suspend fun upsertMachine(machine: MachineVM) {
+        TODO("Not yet implemented")
     }
+
+
+    override suspend fun deleteMachine(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+
+
 }

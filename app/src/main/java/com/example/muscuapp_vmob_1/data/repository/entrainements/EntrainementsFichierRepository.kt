@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.data.repository.Entrainements
+package com.example.muscuapp_vmob_1.data.repository.entrainements
 
 import com.example.muscuapp_vmob_1.domain.model.Entrainements
 import kotlinx.coroutines.flow.Flow
