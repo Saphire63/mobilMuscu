@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.model
+package com.example.muscuapp_vmob_1.domain.model
 
 import kotlinx.serialization.Serializable
 

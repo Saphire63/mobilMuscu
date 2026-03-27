@@ -1,6 +1,6 @@
 package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm
 
-import com.example.muscuapp_vmob_1.model.Machine
+import com.example.muscuapp_vmob_1.domain.model.Machine
 
 class MachineVM (
     val name: String,

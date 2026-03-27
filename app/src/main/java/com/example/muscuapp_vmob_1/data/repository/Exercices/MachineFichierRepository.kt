@@ -1,11 +1,10 @@
 package com.example.muscuapp_vmob_1.data.repository.Exercices
 
 import android.content.Context
-import com.example.muscuapp_vmob_1.model.Machine
+import com.example.muscuapp_vmob_1.domain.model.Machine
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
