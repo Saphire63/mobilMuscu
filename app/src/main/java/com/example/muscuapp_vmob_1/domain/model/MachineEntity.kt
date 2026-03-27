@@ -3,7 +3,9 @@ package com.example.muscuapp_vmob_1.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "machines")
 data class MachineEntity (
     @PrimaryKey(true) val id: Int? = null,

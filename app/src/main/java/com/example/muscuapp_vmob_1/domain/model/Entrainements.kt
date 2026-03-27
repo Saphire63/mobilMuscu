@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Entrainements(
     val category: String="",
-    val machines: List<Machine>,
+    val machines: List<MachineEntity>,
 
 
     )
