@@ -23,7 +23,7 @@ class MachineFichierRepository @Inject constructor (
         emit(machines)
     }
 
-    override suspend fun getMachine(id: Int): MachineVM {
+    override suspend fun getMachine(id: Int): MachineVM? {
         TODO("Not yet implemented")
     }
 
@@ -32,7 +32,7 @@ class MachineFichierRepository @Inject constructor (
     }
 
 
-    override suspend fun deleteMachine(id: Int) {
+    override suspend fun deleteMachine(machine: MachineVM) {
         TODO("Not yet implemented")
     }
 

@@ -7,9 +7,9 @@ interface MachineRepository {
 
     fun getMachines(): Flow<List<MachineVM>>
 
-    suspend  fun getMachine(id: Int): MachineVM
+    suspend  fun getMachine(id: Int): MachineVM?
 
     suspend fun upsertMachine(machine: MachineVM )
 
-    suspend fun deleteMachine(id: Int)
+    suspend fun deleteMachine(machine: MachineVM)
 }
