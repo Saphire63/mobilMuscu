@@ -1,6 +1,8 @@
 package com.example.muscuapp_vmob_1.data.repository.exercices
 
 import android.content.Context
+import com.example.muscuapp_vmob_1.domain.model.MachineEntity
+import com.example.muscuapp_vmob_1.domain.model.MachineEntity.Companion.toVM
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -18,7 +20,8 @@ class MachineFichierRepository @Inject constructor (
             .bufferedReader()
             .use { it.readText() }
 
-        val machines = Json.decodeFromString<List<MachineVM>>(jsonString)
+        val machines = Json.decodeFromString<List<MachineEntity>>(jsonString)
+            .map{ it.toVM() }
 
         emit(machines)
     }

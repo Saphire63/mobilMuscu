@@ -37,17 +37,17 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
         val machines by viewModel.machines.collectAsState()
         Row (
             modifier= Modifier
-                .padding(innerPaddingValues)
+                .padding(5.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             SearchBar( modifier = Modifier.weight(1f))
-            Button(onClick = {},
+            Button(onClick = {onClick()},
                 colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red,
                 contentColor = Color.White
             ),
-                shape = RoundedCornerShape(2.dp),
+                shape = RoundedCornerShape(6.dp),
                 modifier = Modifier.padding(5.dp)
             )
             {
@@ -56,7 +56,7 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
         }
         LazyColumn(
             modifier = Modifier
-                .padding(innerPaddingValues)
+                .padding()
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {

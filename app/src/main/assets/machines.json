@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Bench",
     "max": 100,
     "percentage": 70,
@@ -7,6 +8,7 @@
     "description": "Machine pour les pectoraux."
   },
   {
+    "id": 2,
     "name": "Squat",
     "max": 200,
     "percentage": 50,
@@ -14,6 +16,7 @@
     "description": "Pour travailler les fessiers pour être au top au carnaval de Rio 🎭🇧🇷🔥"
   },
   {
+    "id": 3,
     "name": "Leg Press",
     "max": 200,
     "percentage": 50,
@@ -21,6 +24,7 @@
     "description": "Des jambes solides pour suivre le rythme de la samba sans s’écrouler après 10 minutes 💃🇧🇷🥁"
   },
   {
+    "id": 4,
     "name": "Tirage dorsal",
     "max": 48,
     "percentage": 50,
