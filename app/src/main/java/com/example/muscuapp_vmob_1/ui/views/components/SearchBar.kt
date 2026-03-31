@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun SearchBar() {
+fun SearchBar(modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
 
     TextField(
         value = searchQuery,
         onValueChange = { searchQuery = it },
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
+
             .height(56.dp),
         placeholder = { Text("Rechercher une machine...", color = Color.Gray) },
         leadingIcon = {
