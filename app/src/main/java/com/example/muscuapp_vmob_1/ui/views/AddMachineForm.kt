@@ -36,7 +36,7 @@ import androidx.compose.ui.semantics.Role.Companion.Checkbox
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.max
 import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.AddEditMachineViewModel
+import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
 
 
 @Composable
