@@ -20,7 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
 
 @Composable
 fun ExerciceCard(machine: MachineVM) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.room.Room
 import com.example.muscuapp_vmob_1.data.source.MuscuDataBase
 import com.example.muscuapp_vmob_1.navigation.AppNavigation
@@ -25,7 +26,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MuscuApp_VMob_1Theme {
+            val isDark = isSystemInDarkTheme()
+            android.util.Log.d("THEME", "isDark = $isDark") // ← ajoute ça
+            MuscuApp_VMob_1Theme (darkTheme = true){
                 AppNavigation()
             }
         }

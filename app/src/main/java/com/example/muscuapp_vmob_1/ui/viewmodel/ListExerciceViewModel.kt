@@ -1,10 +1,11 @@
 package com.example.muscuapp_vmob_1.ui.viewmodel
 
 import android.util.Log
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRepository
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,11 +19,21 @@ class ListExerciceViewModel @Inject constructor(
     private val repository: MachineRepository
 ) : ViewModel() {
 
-    val machines: StateFlow<List<MachineVM>> = repository.getMachines()
-        .catch { e -> Log.e("VM Crash", "Erreur Flow DB", e) }
+    val machines: StateFlow<MachineUiState> = repository.getMachines()
+        .map { list ->
+            if (list.isEmpty()) {
+                MachineUiState.Empty
+            } else {
+                MachineUiState.Success(list)
+            }
+        }
+        .catch { e ->
+            Log.e("VM Crash", "Erreur Flow DB", e)
+            emit(MachineUiState.Error("Erreur de chargement"))
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
+            initialValue = MachineUiState.Loading
         )
 }

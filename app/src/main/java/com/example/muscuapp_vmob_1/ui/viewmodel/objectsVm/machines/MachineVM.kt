@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm
+package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines
 
 import com.example.muscuapp_vmob_1.domain.model.MachineEntity
 

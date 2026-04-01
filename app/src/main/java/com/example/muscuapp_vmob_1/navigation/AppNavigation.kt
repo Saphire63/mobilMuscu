@@ -2,6 +2,7 @@ package com.example.muscuapp_vmob_1.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ fun AppNavigation(){
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        containerColor = Color(0xFF0D0D0D),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = { AppTopBar() },
         bottomBar = { AppBottomBar(navController) }
     ) { innerPadding ->

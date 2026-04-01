@@ -41,7 +41,7 @@ object AppModule {
         dao: MachineDao
     ): MachineRepository {
         // Switch rapide :
-        return MachineFichierRepository(context)  // ← JSON
-        //return MachineRoomRepository(dao)           // ← Room
+        //return MachineFichierRepository(context)  // ← JSON
+        return MachineRoomRepository(dao)           // ← Room
     }
 }

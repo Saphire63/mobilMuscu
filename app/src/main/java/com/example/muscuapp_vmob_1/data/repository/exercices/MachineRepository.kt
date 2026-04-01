@@ -1,6 +1,6 @@
 package com.example.muscuapp_vmob_1.data.repository.exercices
 
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.MachineVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
 import kotlinx.coroutines.flow.Flow
 
 interface MachineRepository {
