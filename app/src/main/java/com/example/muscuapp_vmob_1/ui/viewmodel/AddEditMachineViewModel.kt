@@ -3,10 +3,18 @@ package com.example.muscuapp_vmob_1.ui.viewmodel
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRepository
 import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddEditMachineViewModel : ViewModel() {
+@HiltViewModel
+class AddEditMachineViewModel @Inject constructor(
+    private val repository: MachineRepository
+): ViewModel() {
     private val _machine = mutableStateOf(MachineVM())
     val machine : State<MachineVM> = _machine
 
@@ -29,8 +37,11 @@ class AddEditMachineViewModel : ViewModel() {
 
 
             AddEditMachineEvent.SaveMachine -> {
-                //addOrUpdateStory(machine.value)
-                //TODO
+                if(_machine.value.isDone) {
+                    viewModelScope.launch {
+                        repository.deleteMachine(_machine.value)
+                    }
+                }
             }
         }
     }
