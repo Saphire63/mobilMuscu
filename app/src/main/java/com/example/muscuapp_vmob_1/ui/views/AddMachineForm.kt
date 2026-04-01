@@ -17,13 +17,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.semantics.Role.Companion.Checkbox
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.max
@@ -42,19 +45,45 @@ import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
 @Composable
 fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel){
     val machineState = viewModel.machine.value
+    val error = viewModel.error.value
+    if (error) {
+        AlertDialog(
+            onDismissRequest = {
+                viewModel.clearError()
+            },
+            confirmButton = {
+                Button(onClick = { viewModel.clearError() }) {
+                    Text("OK")
+                }
+            },
+            title = {
+                Text("Erreur")
+            },
+            text = {
+                Text("Une erreur est survenue") // message fixe ici
+            }
+        )
+    }
+
 
     Scaffold (
         floatingActionButton = {
             FloatingActionButton (onClick = {
-                navController.navigate(
-                    Screen.Exercises.route) }) {
+                viewModel.onEvent(AddEditMachineEvent.SaveMachine)
+                navController.navigate(Screen.Exercises.route)
+            }
+            ) {
                 Icon(imageVector = Icons.Default.Add,
                     contentDescription = "Save Story")
             }
         }
     )
     { innerPadding ->
-        Column(modifier = Modifier.padding(innerPadding)
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
             )
         {
             Text("Ajouter ou modifier une machine",
@@ -65,19 +94,19 @@ fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel)
                 textAlign = TextAlign.Center)
 
             //L'ID de la machine
-            OutlinedTextField(
-                value = machineState.id.toString(),
-                onValueChange = { newText ->
-                    // Filter: Only allow digits (0-9)
-                    if (newText.all { it.isDigit() }) {
-                        val newIdAsInt = newText.toIntOrNull() ?: 0
-                        viewModel.onEvent(AddEditMachineEvent.EnteredId(newIdAsInt))
-                    }
-                },
-                label = { Text ("Id de la machine") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                modifier = Modifier.padding(20.dp),
-            )
+//            OutlinedTextField(
+//                value = machineState.id.toString(),
+//                onValueChange = { newText ->
+//                    // Filter: Only allow digits (0-9)
+//                    if (newText.all { it.isDigit() }) {
+//                        val newIdAsInt = newText.toIntOrNull() ?: 0
+//                        viewModel.onEvent(AddEditMachineEvent.EnteredId(newIdAsInt))
+//                    }
+//                },
+//                label = { Text ("Id de la machine") },
+//                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+//                modifier = Modifier.padding(20.dp),
+//            )
 
 
             //Le nom de la machine
@@ -129,6 +158,7 @@ fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel)
                 )
             }
         }
+
     }
 }
 

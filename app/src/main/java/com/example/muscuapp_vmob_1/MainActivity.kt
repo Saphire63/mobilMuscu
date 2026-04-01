@@ -20,7 +20,9 @@ class MainActivity : ComponentActivity() {
             applicationContext,
             MuscuDataBase::class.java,
             MuscuDataBase.DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

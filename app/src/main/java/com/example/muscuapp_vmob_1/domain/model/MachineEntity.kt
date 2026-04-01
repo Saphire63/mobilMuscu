@@ -11,18 +11,16 @@ data class MachineEntity (
     @PrimaryKey(true) val id: Int? = null,
     val name: String ="",
     val max: Int = 0,
-    val percentage: Int = 0,
-    val weight: Int= 0,
     val description: String = "",
 
 ){
     companion object{
         fun MachineEntity.toVM(): MachineVM{
             return MachineVM(
-                name= name,
-                max= max,
+                id = id ?: 0,
+                name = name,
+                max = max,
                 description = description
-
             )
         }
     }

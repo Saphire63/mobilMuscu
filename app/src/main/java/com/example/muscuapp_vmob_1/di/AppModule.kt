@@ -25,7 +25,9 @@ object AppModule {
             context,
             MuscuDataBase::class.java,
             MuscuDataBase.DATABASE_NAME
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

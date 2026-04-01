@@ -1,5 +1,6 @@
 package com.example.muscuapp_vmob_1.ui.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,13 @@ class AddEditMachineViewModel @Inject constructor(
 ): ViewModel() {
     private val _machine = mutableStateOf(MachineVM())
     val machine : State<MachineVM> = _machine
+
+    private val _error = mutableStateOf<Boolean>(false)
+    val error : State<Boolean> = _error
+
+    fun clearError() {
+        _error.value = false
+    }
 
     fun onEvent(event: AddEditMachineEvent) {
         when (event) {
@@ -38,9 +46,13 @@ class AddEditMachineViewModel @Inject constructor(
 
             AddEditMachineEvent.SaveMachine -> {
                 if(_machine.value.isDone) {
+
                     viewModelScope.launch {
-                        repository.deleteMachine(_machine.value)
+                        repository.upsertMachine(_machine.value)
                     }
+                }
+                else{
+                    _error.value=true
                 }
             }
         }
