@@ -7,9 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,11 +23,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
-
+import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciceViewModel
 @Composable
-fun ExerciceCard(machine: MachineVM) {
+fun ExerciceCard(
+    machine: MachineVM,
+    onDelete: () -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Supprimer") },
+            text = { Text("Voulez-vous supprimer \"${machine.name}\" ?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteDialog = false
+                    onDelete()
+
+                }) {
+                    Text("Oui", color = Color.Red)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Non")
+                }
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -34,8 +64,7 @@ fun ExerciceCard(machine: MachineVM) {
             .clickable { expanded = !expanded }
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+            modifier = Modifier.height(IntrinsicSize.Min)
         ) {
             // Image placeholder
             Box(
@@ -63,16 +92,34 @@ fun ExerciceCard(machine: MachineVM) {
                     color = Color.LightGray
                 )
             }
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(vertical = 4.dp),
 
-            Icon(
-                imageVector = if (expanded) {
-                    Icons.Default.KeyboardArrowDown
-                } else {
-                    Icons.AutoMirrored.Filled.KeyboardArrowRight
-                },
-                contentDescription = if (expanded) "Collapse" else "Expand",
-                tint = Color.White
-            )
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally
+
+            ) {
+                Icon(
+                    imageVector = if (expanded) {
+                        Icons.Default.KeyboardArrowDown
+                    } else {
+                        Icons.AutoMirrored.Filled.KeyboardArrowRight
+                    },
+                    contentDescription = if (expanded) "Collapse" else "Expand",
+                    tint = Color.White
+
+                )
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    tint = Color.White,
+                    contentDescription = "Delete",
+                    modifier = Modifier.clickable{showDeleteDialog = true}
+
+                )
+            }
+
         }
 
         // Expanded description

@@ -36,7 +36,7 @@ class MachineFichierRepository @Inject constructor (
 
 
     override suspend fun deleteMachine(machine: MachineVM) {
-        TODO("Not yet implemented")
+        throw Exception("pas implémenté")
     }
 
 

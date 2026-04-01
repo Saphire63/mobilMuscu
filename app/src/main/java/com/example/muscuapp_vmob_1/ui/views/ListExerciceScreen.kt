@@ -94,7 +94,7 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(machines) { machine ->
-                        ExerciceCard(machine)
+                        ExerciceCard(machine) { viewModel.deleteMachine(machine) }
                     }
                 }
             }

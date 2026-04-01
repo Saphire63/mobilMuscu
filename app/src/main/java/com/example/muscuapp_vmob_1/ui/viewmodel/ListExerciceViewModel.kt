@@ -13,11 +13,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ListExerciceViewModel @Inject constructor(
     private val repository: MachineRepository
 ) : ViewModel() {
+
+
 
     val machines: StateFlow<MachineUiState> = repository.getMachines()
         .map { list ->
@@ -36,4 +39,9 @@ class ListExerciceViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = MachineUiState.Loading
         )
+    fun deleteMachine(machineVM: MachineVM){
+        viewModelScope.launch {
+            repository.deleteMachine(machineVM)
+        }
+    }
 }
