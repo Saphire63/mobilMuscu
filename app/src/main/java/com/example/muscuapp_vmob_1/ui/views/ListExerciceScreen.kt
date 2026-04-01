@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.example.muscuapp_vmob_1.navigation.Screen
 import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciceViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineUiState
 import com.example.muscuapp_vmob_1.ui.views.components.ExerciceCard
@@ -31,10 +33,8 @@ import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 
 
 @Composable
-fun ListExercice(innerPaddingValues: PaddingValues) {
-    fun addMachine(){
-        print ("not inplemented yet")
-    }
+fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController) {
+
     Column() {
         val viewModel: ListExerciceViewModel = hiltViewModel()
         val machines by viewModel.machines.collectAsState()
@@ -45,7 +45,8 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             SearchBar( modifier = Modifier.weight(1f))
-            Button(onClick = {addMachine()},
+            Button(onClick = {    navController.navigate(Screen.AddAMachine.route)
+            },
                 colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red,
                 contentColor = Color.White
@@ -73,7 +74,7 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text("Pas d’entraînement trouvé")
-                    Button(onClick = {addMachine()},
+                    Button(onClick = {    navController.navigate(Screen.AddAMachine.route) },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Red,
                             contentColor = Color.White
@@ -107,4 +108,7 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
             }
         }
     }
+
+
+
 }

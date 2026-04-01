@@ -4,9 +4,9 @@ import com.example.muscuapp_vmob_1.domain.model.MachineEntity
 
 class MachineVM (
     val id: Int = 0,
-    val name: String,
-    val max: Int,
-    val description: String
+    val name: String ="",
+    val max: Int = 0,
+    val description: String = ""
 ){
     companion object{
         fun fromEntity(machine: MachineEntity): MachineVM{
