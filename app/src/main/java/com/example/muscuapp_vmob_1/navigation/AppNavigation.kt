@@ -8,9 +8,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.AddEditMachineViewModel
+import com.example.muscuapp_vmob_1.ui.views.DrawForm
 import com.example.muscuapp_vmob_1.ui.views.ListExercice
 import com.example.muscuapp_vmob_1.ui.views.components.AppTopBar
 import com.example.muscuapp_vmob_1.ui.views.components.AppBottomBar
@@ -37,7 +40,7 @@ fun AppNavigation(){
             }
 
             composable(Screen.Exercises.route) {
-                ListExercice(innerPaddingValues = innerPadding)
+                ListExercice(innerPaddingValues = innerPadding, navController)
             }
 
             composable(Screen.Entrainements.route) {
@@ -46,6 +49,10 @@ fun AppNavigation(){
 
             composable(Screen.Calendrier.route) {
                 Text("Calendar")
+            }
+            composable(Screen.AddAMachine.route) {
+                val viewModel: AddEditMachineViewModel = hiltViewModel()
+                DrawForm(navController, viewModel = viewModel)
             }
         }
     }
