@@ -58,9 +58,13 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
             }
         }
         when (machines) {
+
             is MachineUiState.Loading -> {
                 Text("Chargement...", modifier = Modifier.fillMaxWidth())
             }
+
+
+
             is MachineUiState.Empty -> {
                 Column(
                     modifier = Modifier
@@ -77,10 +81,12 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
                         shape = RoundedCornerShape(15.dp)
                     )
                     {
-                        Text("Créer une machine")
+                        Text("Ajouter une machine")
                     }
                 }
             }
+
+
             is MachineUiState.Success -> {
                 val machines = (machines as MachineUiState.Success).machines
                 LazyColumn(
@@ -92,6 +98,10 @@ fun ListExercice(innerPaddingValues: PaddingValues) {
                     }
                 }
             }
+
+
+
+
             is MachineUiState.Error -> {
                 Text("Erreur lors du chargement", color = Color.Red)
             }
