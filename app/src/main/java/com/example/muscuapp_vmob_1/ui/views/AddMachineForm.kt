@@ -1,44 +1,32 @@
 package com.example.muscuapp_vmob_1.ui.views
-import android.R.attr.value
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TextField
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import com.example.muscuapp_vmob_1.navigation.Screen
-import androidx.compose.material3.Text
-import androidx.compose.material3.Icon
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.semantics.Role.Companion.Checkbox
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.max
+import androidx.navigation.NavController
 import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
+import com.example.muscuapp_vmob_1.navigation.Screen
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
 
 
@@ -68,13 +56,16 @@ fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel)
 
     Scaffold (
         floatingActionButton = {
-            FloatingActionButton (onClick = {
+            FloatingActionButton (
+                modifier = Modifier.width(100.dp),
+                containerColor = Color.Red,
+                contentColor = Color.White,
+                onClick = {
                 viewModel.onEvent(AddEditMachineEvent.SaveMachine)
                 navController.navigate(Screen.Exercises.route)
             }
             ) {
-                Icon(imageVector = Icons.Default.Add,
-                    contentDescription = "Save Story")
+                Text("Ajouter")
             }
         }
     )

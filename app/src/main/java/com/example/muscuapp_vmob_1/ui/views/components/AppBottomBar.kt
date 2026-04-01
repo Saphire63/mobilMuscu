@@ -39,11 +39,13 @@ fun AppBottomBar(navController: NavController) {
 
     val currentRoute =
         navController.currentBackStackEntryAsState().value?.destination?.route
-
     NavigationBar(
         containerColor = Color(0xFF1A1A1A)
     ) {
+
         items.forEachIndexed { index, screen ->
+
+            val isSelected = currentRoute?.startsWith(screen.route)==true
 
             NavigationBarItem(
                 icon = {
@@ -54,17 +56,22 @@ fun AppBottomBar(navController: NavController) {
                 },
                 label = { Text(screen.route) },
 
-                selected = currentRoute == screen.route,
+                selected = isSelected,
 
                 onClick = {
-                    navController.navigate(screen.route) {
+                    if (isSelected) {
+                        navController.popBackStack()
+                    }
+                    else {
+                        navController.navigate(screen.route) {
 
-                        popUpTo(navController.graph.startDestinationId) {
-                            saveState = true
+                            popUpTo(navController.graph.startDestinationId) {
+                                saveState = true
+                            }
+
+                            launchSingleTop = true
+                            restoreState = true
                         }
-
-                        launchSingleTop = true
-                        restoreState = true
                     }
                 },
 
