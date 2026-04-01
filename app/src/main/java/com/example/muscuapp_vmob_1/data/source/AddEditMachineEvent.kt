@@ -5,6 +5,6 @@ sealed interface AddEditMachineEvent {
     data class EnteredName(val name: String): AddEditMachineEvent
     data class EnteredMax(val max: Int): AddEditMachineEvent
     data class EnteredDescription(val description: String): AddEditMachineEvent
-    data object StoryDone: AddEditMachineEvent
-    data object SaveStory: AddEditMachineEvent
+    data object MachineDone: AddEditMachineEvent
+    data object SaveMachine: AddEditMachineEvent
 }

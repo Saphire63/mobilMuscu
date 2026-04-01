@@ -2,11 +2,12 @@ package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines
 
 import com.example.muscuapp_vmob_1.domain.model.MachineEntity
 
-class MachineVM (
+data class MachineVM (
     val id: Int = 0,
     val name: String ="",
     val max: Int = 0,
-    val description: String = ""
+    val description: String = "",
+    val isDone: Boolean = false // ne sert que pour le formulaire d'ajout
 ){
     companion object{
         fun fromEntity(machine: MachineEntity): MachineVM{

@@ -1,6 +1,7 @@
 package com.example.muscuapp_vmob_1.ui.views
 import android.R.attr.value
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.mutableStateOf
@@ -29,15 +32,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.Role.Companion.Checkbox
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.max
+import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.AddEditMachineViewModel
+
 
 @Composable
-fun DrawForm (navController : NavController){
-    var nomMachine by remember { mutableStateOf("") }
-    var idMachine by remember { mutableStateOf("") }
-    var maxMachine by remember { mutableStateOf("") }
-    var descriptionMachine by remember { mutableStateOf("") }
+fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel){
+    val machineState = viewModel.machine.value
 
     Scaffold (
         floatingActionButton = {
@@ -62,11 +66,12 @@ fun DrawForm (navController : NavController){
 
             //L'ID de la machine
             OutlinedTextField(
-                value = idMachine,
+                value = machineState.id.toString(),
                 onValueChange = { newText ->
                     // Filter: Only allow digits (0-9)
                     if (newText.all { it.isDigit() }) {
-                        idMachine = newText
+                        val newIdAsInt = newText.toIntOrNull() ?: 0
+                        viewModel.onEvent(AddEditMachineEvent.EnteredId(newIdAsInt))
                     }
                 },
                 label = { Text ("Id de la machine") },
@@ -77,9 +82,9 @@ fun DrawForm (navController : NavController){
 
             //Le nom de la machine
             OutlinedTextField(
-                value = nomMachine,
-                onValueChange = { nouvelleValeur ->
-                    nomMachine = nouvelleValeur
+                value = machineState.name,
+                onValueChange = { newText ->
+                    viewModel.onEvent(AddEditMachineEvent.EnteredName(newText))
                 },
                 label = { Text("Nom de la machine") },
                 modifier = Modifier.padding(20.dp),
@@ -87,11 +92,13 @@ fun DrawForm (navController : NavController){
 
             //Le max de poids à cette machine
             OutlinedTextField(
-                value = maxMachine,
+                value = machineState.max.toString(),
                 onValueChange = { newText ->
                     // Filter: Only allow digits (0-9)
                     if (newText.all { it.isDigit() }) {
-                        maxMachine = newText
+                        // Ici j'ai utilisé l'IA (Gemini) pour corriger l'erreur qui faisait que l'app plantait
+                        val newMaxAsInt = newText.toIntOrNull() ?: 0
+                        viewModel.onEvent(AddEditMachineEvent.EnteredMax(newMaxAsInt))
                     }
                 },
                 label = { Text ("Poids (kg) max à cette machine") },
@@ -101,16 +108,27 @@ fun DrawForm (navController : NavController){
 
             //La description de la machine
             OutlinedTextField(
-                value = descriptionMachine,
-                onValueChange = { nouvelleValeur ->
-                    descriptionMachine = nouvelleValeur
+                value = machineState.description,
+                onValueChange = { newText ->
+                    viewModel.onEvent(AddEditMachineEvent.EnteredDescription(newText))
+
                 },
                 label = { Text("Description de la machine") },
                 modifier = Modifier.padding(20.dp),
             )
+
+            Row {
+                Text(
+                    text = "Done",
+                    modifier = Modifier.align(Alignment.CenterVertically))
+                Checkbox(
+                    checked = machineState.isDone,
+                    onCheckedChange = {
+                        viewModel.onEvent(AddEditMachineEvent.MachineDone)
+                    }
+                )
+            }
         }
-
     }
-
 }
 
