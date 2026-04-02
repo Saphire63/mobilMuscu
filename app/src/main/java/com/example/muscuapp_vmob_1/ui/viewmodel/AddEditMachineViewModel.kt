@@ -51,9 +51,6 @@ class AddEditMachineViewModel @Inject constructor(
             }
 
             AddEditMachineEvent.SaveMachine -> {
-                // Remove the requirement for isDone to be true for saving if it's annoying, 
-                // but user had it so I'll keep it or make it more flexible.
-                // For now, keeping original logic but it might be better to just save.
                 viewModelScope.launch {
                     repository.upsertMachine(_machine.value)
                 }
