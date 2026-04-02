@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.muscuapp_vmob_1.domain.model.MachineEntity
 
-@Database( entities = [MachineEntity::class], version= 4 )
+@Database( entities = [MachineEntity::class], version= 5 )
 abstract  class MuscuDataBase : RoomDatabase(){
     abstract fun dao(): MachineDao
     companion object{

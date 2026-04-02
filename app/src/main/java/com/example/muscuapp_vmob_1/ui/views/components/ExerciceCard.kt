@@ -38,7 +38,8 @@ import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
 @Composable
 fun ExerciceCard(
     machine: MachineVM,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onEdit: (MachineVM) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -48,7 +49,7 @@ fun ExerciceCard(
             val p = percent.toFloatOrNull() ?: 0f
             return (p / 100f) * max
         }
-        return 0f
+        return 0f // exeption de logique qui aurait pu être dans VM sauf que ici n'est pas utilisée dans d'autres contextes donc j'ai jugé pas très utile d'over-architecturer
     }
     if (showDeleteDialog) {
         AlertDialog(
@@ -172,7 +173,10 @@ fun ExerciceCard(
                     imageVector = Icons.Default.Edit,
                     tint = Color.White,
                     contentDescription = "Edit",
-//                    modifier = Modifier.clickable()
+                    modifier = Modifier.clickable{
+                        onEdit(machine)
+
+                    }
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,

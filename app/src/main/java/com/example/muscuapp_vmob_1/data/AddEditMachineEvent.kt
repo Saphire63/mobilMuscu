@@ -1,5 +1,7 @@
 package com.example.muscuapp_vmob_1.data
 
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
+
 sealed interface AddEditMachineEvent {
     data class EnteredId(val id: Int): AddEditMachineEvent
     data class EnteredName(val name: String): AddEditMachineEvent
@@ -7,4 +9,6 @@ sealed interface AddEditMachineEvent {
     data class EnteredDescription(val description: String): AddEditMachineEvent
     data object MachineDone: AddEditMachineEvent
     data object SaveMachine: AddEditMachineEvent
+    data class LoadMachine(val machine: MachineVM): AddEditMachineEvent
+    data object ResetForm: AddEditMachineEvent
 }

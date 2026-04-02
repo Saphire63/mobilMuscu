@@ -7,16 +7,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
-import com.example.muscuapp_vmob_1.ui.views.AddMachineForm
 import com.example.muscuapp_vmob_1.ui.views.ListExercice
 import com.example.muscuapp_vmob_1.ui.views.components.AppTopBar
 import com.example.muscuapp_vmob_1.ui.views.components.AppBottomBar
+
 @Composable
 fun AppNavigation(){
     val navController = rememberNavController()
@@ -29,12 +26,10 @@ fun AppNavigation(){
     ) { innerPadding ->
 
         NavHost(
-
             navController = navController,
             startDestination = Screen.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-
             composable(Screen.Home.route) {
                 Text("Home")
             }
@@ -50,14 +45,6 @@ fun AppNavigation(){
             composable(Screen.Calendrier.route) {
                 Text("Calendar")
             }
-            composable(Screen.AddAMachine.route) {
-                val viewModel: AddEditMachineViewModel = hiltViewModel()
-                AddMachineForm(navController, viewModel = viewModel)
-            }
         }
     }
-
 }
-
-
-
