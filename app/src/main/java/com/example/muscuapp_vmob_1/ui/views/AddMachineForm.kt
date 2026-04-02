@@ -32,7 +32,7 @@ fun AddMachineDialog(
     onSave: () -> Unit
 ) {
     val machineState = viewModel.machine.value
-    // État local pour afficher l'erreur uniquement après une tentative d'enregistrement
+
     var showValidationError by remember { mutableStateOf(false) }
 
     AlertDialog(
@@ -91,8 +91,7 @@ fun AddMachineDialog(
                     )
                 }
 
-                // Affichage du message d'erreur rouge si nécessaire
-                if (showValidationError && !machineState.isDone) {
+                if (showValidationError && !machineState.isDone) { // message d'erreur qui dépend de la variable local en mutableStateOf
                     Text(
                         text = "Veuillez cocher 'Terminé' pour enregistrer",
                         color = Color.Red,
@@ -108,7 +107,7 @@ fun AddMachineDialog(
                     viewModel.onEvent(AddEditMachineEvent.SaveMachine)
                     onSave()
                 } else {
-                    showValidationError = true // si c'est pas terminé alors change a tru le message d'erreure qui s'affiche dans le truc 
+                    showValidationError = true // si c'est pas terminé alors change a tru le message d'erreure qui s'affiche dans le truc
                 }
             }) {
                 Text("Enregistrer")
