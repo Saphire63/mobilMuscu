@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
+import com.example.muscuapp_vmob_1.data.AddEditMachineEvent
 import com.example.muscuapp_vmob_1.navigation.Screen
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
 

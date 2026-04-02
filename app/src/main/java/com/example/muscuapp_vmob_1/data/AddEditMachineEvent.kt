@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.data.source
+package com.example.muscuapp_vmob_1.data
 
 sealed interface AddEditMachineEvent {
     data class EnteredId(val id: Int): AddEditMachineEvent

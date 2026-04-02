@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRepository
-import com.example.muscuapp_vmob_1.data.source.AddEditMachineEvent
+import com.example.muscuapp_vmob_1.data.AddEditMachineEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

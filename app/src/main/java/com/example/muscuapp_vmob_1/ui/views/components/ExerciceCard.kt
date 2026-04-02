@@ -1,18 +1,23 @@
 package com.example.muscuapp_vmob_1.ui.views.components
 
+import android.database.Cursor
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
@@ -31,7 +39,11 @@ fun ExerciceCard(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-
+    var percent by remember { mutableStateOf("") }
+    fun calculateWeight(percent: String, max: Int): Float {
+        val p = percent.toFloatOrNull() ?: 0f
+        return (p / 100f) * max
+    }
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
@@ -85,10 +97,42 @@ fun ExerciceCard(
                     color = Color.LightGray
                 )
 
-                Text(
-                    text = "${"input"}%    ${"calcul correspondant"} kg",
-                    color = Color.LightGray
+                BasicTextField(
+                        value = percent,
+                        onValueChange = {
+                            if (it.matches(Regex("^\\d*\\.?\\d*$"))) {
+                                percent = it
+                            }
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth(0.40f)
+                            .height(40.dp)
+                            .background(Color.DarkGray, RoundedCornerShape(8.dp))
+                            .padding(horizontal = 8.dp, vertical = 4.dp),
+                        singleLine = true,
+                        cursorBrush = SolidColor(Color.White),
+                        textStyle = TextStyle(color = Color.White),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+
+
+                    decorationBox = { innerTextField ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxSize()
+                            ) {
+                                Box(
+                                    modifier = Modifier.weight(1f)) {
+                                    innerTextField()
+                                }
+                                Text("%", color = Color.White)
+                            }
+                        }
                 )
+                Text(
+                    text = "${"%.1f".format(calculateWeight(percent, machine.max))} kg"
+                )
+
             }
             Column(
                 modifier = Modifier
@@ -108,6 +152,12 @@ fun ExerciceCard(
                     contentDescription = if (expanded) "Collapse" else "Expand",
                     tint = Color.White
 
+                )
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    tint = Color.White,
+                    contentDescription = "Edit",
+//                    modifier = Modifier.clickable()
                 )
                 Icon(
                     imageVector = Icons.Default.Delete,
