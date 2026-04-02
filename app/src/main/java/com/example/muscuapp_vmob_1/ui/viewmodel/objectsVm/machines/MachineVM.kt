@@ -5,7 +5,7 @@ import com.example.muscuapp_vmob_1.domain.model.MachineEntity
 data class MachineVM (
     val id: Int = 0,
     val name: String ="",
-    val max: Int = 0,
+    val max: Float? = null,
     val description: String = "",
     val isDone: Boolean = false // ne sert que pour le formulaire d'ajout
 ){

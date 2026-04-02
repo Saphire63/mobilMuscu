@@ -40,9 +40,12 @@ fun ExerciceCard(
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var percent by remember { mutableStateOf("") }
-    fun calculateWeight(percent: String, max: Int): Float {
-        val p = percent.toFloatOrNull() ?: 0f
-        return (p / 100f) * max
+    fun calculateWeight(percent: String, max: Float?): Float {
+        if(max!=null) {
+            val p = percent.toFloatOrNull() ?: 0f
+            return (p / 100f) * max
+        }
+        return 0f
     }
     if (showDeleteDialog) {
         AlertDialog(
@@ -93,7 +96,7 @@ fun ExerciceCard(
                 )
 
                 Text(
-                    text = "Max : ${machine.max}",
+                    text = "Max : ${machine.max?.toString() ?:"No max yet"}",
                     color = Color.LightGray
                 )
 

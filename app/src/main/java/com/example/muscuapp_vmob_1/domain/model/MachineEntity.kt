@@ -10,10 +10,10 @@ import kotlinx.serialization.Serializable
 data class MachineEntity (
     @PrimaryKey(true) val id: Int? = null,
     val name: String ="",
-    val max: Int = 0,
+    val max: Float? = null,
     val description: String = "",
 
-){
+    ){
     companion object{
         fun MachineEntity.toVM(): MachineVM{
             return MachineVM(

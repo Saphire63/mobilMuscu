@@ -112,13 +112,12 @@ fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel)
 
             //Le max de poids à cette machine
             OutlinedTextField(
-                value = machineState.max.toString(),
+                value = machineState.max?.toString() ?: "",
                 onValueChange = { newText ->
                     // Filter: Only allow digits (0-9)
-                    if (newText.all { it.isDigit() }) {
+                    if (newText.matches(Regex("^\\d*\\.?\\d*$"))) {
                         // Ici j'ai utilisé l'IA (Gemini) pour corriger l'erreur qui faisait que l'app plantait
-                        val newMaxAsInt = newText.toIntOrNull() ?: 0
-                        viewModel.onEvent(AddEditMachineEvent.EnteredMax(newMaxAsInt))
+                        viewModel.onEvent(AddEditMachineEvent.EnteredMax(newText.toFloat()))
                     }
                 },
                 label = { Text ("Poids (kg) max à cette machine") },
