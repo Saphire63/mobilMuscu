@@ -31,7 +31,7 @@ import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
 
 
 @Composable
-fun DrawForm (navController : NavController, viewModel: AddEditMachineViewModel){
+fun AddMachineForm (navController : NavController, viewModel: AddEditMachineViewModel){
     val machineState = viewModel.machine.value
     val error = viewModel.error.value
     if (error) {

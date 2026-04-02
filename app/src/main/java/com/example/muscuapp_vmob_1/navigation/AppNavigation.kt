@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
-import com.example.muscuapp_vmob_1.ui.views.DrawForm
+import com.example.muscuapp_vmob_1.ui.views.AddMachineForm
 import com.example.muscuapp_vmob_1.ui.views.ListExercice
 import com.example.muscuapp_vmob_1.ui.views.components.AppTopBar
 import com.example.muscuapp_vmob_1.ui.views.components.AppBottomBar
@@ -52,7 +52,7 @@ fun AppNavigation(){
             }
             composable(Screen.AddAMachine.route) {
                 val viewModel: AddEditMachineViewModel = hiltViewModel()
-                DrawForm(navController, viewModel = viewModel)
+                AddMachineForm(navController, viewModel = viewModel)
             }
         }
     }

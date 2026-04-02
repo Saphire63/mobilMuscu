@@ -1,10 +1,12 @@
 package com.example.muscuapp_vmob_1.ui.views.components
 
+import android.R.attr.left
 import android.database.Cursor
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -99,8 +102,10 @@ fun ExerciceCard(
                     text = "Max : ${machine.max?.toString() ?:"No max yet"}",
                     color = Color.LightGray
                 )
-
-                BasicTextField(
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BasicTextField(
                         value = percent,
                         onValueChange = {
                             if (it.matches(Regex("^\\d*\\.?\\d*$"))) {
@@ -118,23 +123,30 @@ fun ExerciceCard(
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
 
 
-                    decorationBox = { innerTextField ->
+                        decorationBox = { innerTextField ->
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier.fillMaxSize()
                             ) {
                                 Box(
-                                    modifier = Modifier.weight(1f)) {
+                                    modifier = Modifier.weight(1f)
+                                ) {
                                     innerTextField()
                                 }
                                 Text("%", color = Color.White)
                             }
                         }
-                )
-                Text(
-                    text = "${"%.1f".format(calculateWeight(percent, machine.max))} kg"
-                )
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 20.dp),
+                        text="->"
+                    )
+                    Text(
+                        modifier = Modifier.padding(start = 15.dp),
+                        text = "${"%.1f".format(calculateWeight(percent, machine.max))} kg"
+                    )
+                }
 
             }
             Column(
