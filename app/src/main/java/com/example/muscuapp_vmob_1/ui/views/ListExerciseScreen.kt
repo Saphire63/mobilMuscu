@@ -38,6 +38,7 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
     val listViewModel: ListExerciseViewModel = hiltViewModel()
     val editViewModel: AddEditExerciseViewModel = hiltViewModel()
     val exercises by listViewModel.exercises.collectAsState()
+    val searchQuery by listViewModel.searchQuery.collectAsState()
     
     var showDialog by remember { mutableStateOf(false) }
 
@@ -58,7 +59,11 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            SearchBar( modifier = Modifier.weight(1f))
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = { listViewModel.onSearchQueryChange(it) },
+                modifier = Modifier.weight(1f)
+            )
             Button(onClick = {
                 editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
                 showDialog = true
@@ -90,7 +95,7 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text("Pas d’entraînement trouvé")
+                    Text(if (searchQuery.isEmpty()) "Pas d’exercices trouvé" else "Aucun résultat pour \"$searchQuery\"")
                     Button(
                         onClick = {
                             editViewModel.onEvent(AddEditExerciseEvent.ResetForm)

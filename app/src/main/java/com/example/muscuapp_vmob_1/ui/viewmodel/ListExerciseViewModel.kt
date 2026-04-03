@@ -8,10 +8,12 @@ import com.example.muscuapp_vmob_1.domain.use_cases.GetExercisesUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseUiState
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,23 +24,38 @@ class ListExerciseViewModel @Inject constructor(
     private val deleteExerciseUseCase: DeleteExerciseUseCase
 ) : ViewModel() {
 
-    val exercises: StateFlow<ExerciseUiState> = getExercisesUseCase()
-        .map { list ->
-            if (list.isEmpty()) {
-                ExerciseUiState.Empty
-            } else {
-                ExerciseUiState.Success(list)
-            }
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    fun onSearchQueryChange(query: String) {
+        _searchQuery.value = query
+    }
+
+    val exercises: StateFlow<ExerciseUiState> = combine(
+        getExercisesUseCase(),
+        _searchQuery
+    ) { list, query ->
+        val filteredList = if (query.isEmpty()) {
+            list
+        } else {
+            list.filter { it.name.contains(query, ignoreCase = true) }
         }
-        .catch { e ->
-            Log.e("VM Crash", "Erreur Flow UseCase", e)
-            emit(ExerciseUiState.Error("Erreur de chargement"))
+
+        if (filteredList.isEmpty()) {
+            ExerciseUiState.Empty
+        } else {
+            ExerciseUiState.Success(filteredList)
         }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = ExerciseUiState.Loading
-        )
+    }
+    .catch { e ->
+        Log.e("VM Crash", "Erreur Flow UseCase", e)
+        emit(ExerciseUiState.Error("Erreur de chargement"))
+    }
+    .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = ExerciseUiState.Loading
+    )
 
     fun deleteExercise(exerciseVM: ExerciseVM){
         viewModelScope.launch {
