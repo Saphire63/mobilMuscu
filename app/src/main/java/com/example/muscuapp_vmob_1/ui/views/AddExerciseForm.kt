@@ -35,6 +35,13 @@ fun AddExerciseDialog(
 
     var showValidationError by remember { mutableStateOf(false) }
 
+    // État local pour le texte du poids afin de permettre une saisie fluide (ex: "", ".", "10.")
+    var weightText by remember(exerciseState.id) {
+        mutableStateOf(exerciseState.max?.let {
+            if (it % 1.0f == 0.0f) it.toInt().toString() else it.toString()
+        } ?: "")
+    }
+
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
@@ -59,12 +66,15 @@ fun AddExerciseDialog(
 
                 // Max de poids
                 OutlinedTextField(
-                    value = exerciseState.max?.toString() ?: "",
-                    onValueChange = { newText ->
-                        if (newText.isEmpty()) {
-                            viewModel.onEvent(AddEditExerciseEvent.EnteredMax(null))
-                        } else if (newText.matches(Regex("^\\d*\\.?\\d*$"))) {
-                            viewModel.onEvent(AddEditExerciseEvent.EnteredMax(newText.toFloatOrNull() ?: 0f))
+                    value = weightText,
+                    onValueChange = { input ->
+                        // On remplace la virgule par un point
+                        val formattedText = input.replace(',', '.')
+                        
+                        // On autorise uniquement les chiffres et un seul point décimal
+                        if (formattedText.isEmpty() || formattedText.matches(Regex("^\\d*\\.?\\d*$"))) {
+                            weightText = formattedText
+                            viewModel.onEvent(AddEditExerciseEvent.EnteredMax(formattedText.toFloatOrNull()))
                         }
                     },
                     label = { Text("Poids max (kg)") },
