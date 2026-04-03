@@ -1,12 +1,9 @@
 package com.example.muscuapp_vmob_1.ui.views.components
 
-import android.R.attr.left
-import android.database.Cursor
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,7 +16,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,28 +25,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.muscuapp_vmob_1.domain.use_cases.CalculateChargeUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
+
 @Composable
 fun ExerciceCard(
     machine: MachineVM,
     onDelete: () -> Unit,
-    onEdit: (MachineVM) -> Unit
+    onEdit: (MachineVM) -> Unit,
+    calculateChargeUseCase: CalculateChargeUseCase = CalculateChargeUseCase() // On injecte l'instance par défaut ici pour simplifier
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var percent by remember { mutableStateOf("") }
-    fun calculateWeight(percent: String, max: Float?): Float {
-        if(max!=null) {
-            val p = percent.toFloatOrNull() ?: 0f
-            return (p / 100f) * max
-        }
-        return 0f // exeption de logique qui aurait pu être dans VM sauf que ici n'est pas utilisée dans d'autres contextes donc j'ai jugé pas très utile d'over-architecturer
-    }
+
     if (showDeleteDialog) {
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
@@ -145,7 +137,7 @@ fun ExerciceCard(
                     )
                     Text(
                         modifier = Modifier.padding(start = 15.dp),
-                        text = "${"%.1f".format(calculateWeight(percent, machine.max))} kg"
+                        text = "${"%.1f".format(calculateChargeUseCase(percent, machine.max))} kg"
                     )
                 }
 

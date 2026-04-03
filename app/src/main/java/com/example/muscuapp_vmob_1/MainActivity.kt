@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val isDark = isSystemInDarkTheme()
-            android.util.Log.d("THEME", "isDark = $isDark") // ← ajoute ça
+            android.util.Log.d("THEME", "isDark = $isDark") 
             MuscuApp_VMob_1Theme (darkTheme = true){
                 AppNavigation()
             }
