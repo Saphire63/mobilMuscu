@@ -27,9 +27,8 @@ fun SearchBar(modifier: Modifier = Modifier) {
         value = searchQuery,
         onValueChange = { searchQuery = it },
         modifier = modifier
-
             .height(56.dp),
-        placeholder = { Text("Rechercher une machine...", color = Color.Gray) },
+        placeholder = { Text("Rechercher un exercice...", color = Color.Gray) },
         leadingIcon = {
             Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray)
         },

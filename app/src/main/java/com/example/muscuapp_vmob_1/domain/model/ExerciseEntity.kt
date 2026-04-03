@@ -2,12 +2,12 @@ package com.example.muscuapp_vmob_1.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = "machines")
-data class MachineEntity (
+@Entity(tableName = "exercises")
+data class ExerciseEntity (
     @PrimaryKey(true) val id: Int? = null,
     val name: String ="",
     val max: Float? = null,
@@ -15,8 +15,8 @@ data class MachineEntity (
 
     ){
     companion object{
-        fun MachineEntity.toVM(): MachineVM{
-            return MachineVM(
+        fun ExerciseEntity.toVM(): ExerciseVM{
+            return ExerciseVM(
                 id = id ?: 0,
                 name = name,
                 max = max,

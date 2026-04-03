@@ -30,14 +30,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.muscuapp_vmob_1.domain.use_cases.CalculateChargeUseCase
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
 
 @Composable
-fun ExerciceCard(
-    machine: MachineVM,
+fun ExerciseCard(
+    exercise: ExerciseVM,
     onDelete: () -> Unit,
-    onEdit: (MachineVM) -> Unit,
-    calculateChargeUseCase: CalculateChargeUseCase = CalculateChargeUseCase() // On injecte l'instance par défaut ici pour simplifier
+    onEdit: (ExerciseVM) -> Unit,
+    calculateChargeUseCase: CalculateChargeUseCase = CalculateChargeUseCase() 
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -47,7 +47,7 @@ fun ExerciceCard(
         AlertDialog(
             onDismissRequest = { showDeleteDialog = false },
             title = { Text("Supprimer") },
-            text = { Text("Voulez-vous supprimer \"${machine.name}\" ?") },
+            text = { Text("Voulez-vous supprimer \"${exercise.name}\" ?") },
             confirmButton = {
                 TextButton(onClick = {
                     showDeleteDialog = false
@@ -86,13 +86,13 @@ fun ExerciceCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = machine.name,
+                    text = exercise.name,
                     color = Color.White,
                     fontSize = 20.sp
                 )
 
                 Text(
-                    text = "Max : ${machine.max?.toString() ?:"No max yet"}",
+                    text = "Max : ${exercise.max?.toString() ?: "No max yet"}",
                     color = Color.LightGray
                 )
                 Row(
@@ -137,7 +137,7 @@ fun ExerciceCard(
                     )
                     Text(
                         modifier = Modifier.padding(start = 15.dp),
-                        text = "${"%.1f".format(calculateChargeUseCase(percent, machine.max))} kg"
+                        text = "${"%.1f".format(calculateChargeUseCase(percent, exercise.max))} kg"
                     )
                 }
 
@@ -166,7 +166,7 @@ fun ExerciceCard(
                     tint = Color.White,
                     contentDescription = "Edit",
                     modifier = Modifier.clickable{
-                        onEdit(machine)
+                        onEdit(exercise)
 
                     }
                 )
@@ -184,7 +184,7 @@ fun ExerciceCard(
         // Expanded description
         AnimatedVisibility(visible = expanded) {
             Text(
-                text = machine.description,
+                text = exercise.description,
                 color = Color.LightGray,
                 modifier = Modifier.padding(top = 12.dp)
             )

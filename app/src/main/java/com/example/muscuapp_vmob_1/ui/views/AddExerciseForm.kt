@@ -22,16 +22,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.muscuapp_vmob_1.data.AddEditMachineEvent
-import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
+import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 
 @Composable
-fun AddMachineDialog(
-    viewModel: AddEditMachineViewModel,
+fun AddExerciseDialog(
+    viewModel: AddEditExerciseViewModel,
     onDismiss: () -> Unit,
     onSave: () -> Unit
 ) {
-    val machineState = viewModel.machine.value
+    val exerciseState = viewModel.exercise.value
 
     var showValidationError by remember { mutableStateOf(false) }
 
@@ -39,7 +39,7 @@ fun AddMachineDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = if (machineState.id == 0) "Ajouter une machine" else "Modifier la machine",
+                text = if (exerciseState.id == 0) "Ajouter un exercice" else "Modifier l'exercice",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -49,22 +49,22 @@ fun AddMachineDialog(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Nom de la machine
+                // Nom de l'exercice
                 OutlinedTextField(
-                    value = machineState.name,
-                    onValueChange = { viewModel.onEvent(AddEditMachineEvent.EnteredName(it)) },
+                    value = exerciseState.name,
+                    onValueChange = { viewModel.onEvent(AddEditExerciseEvent.EnteredName(it)) },
                     label = { Text("Nom") },
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
 
                 // Max de poids
                 OutlinedTextField(
-                    value = machineState.max?.toString() ?: "",
+                    value = exerciseState.max?.toString() ?: "",
                     onValueChange = { newText ->
                         if (newText.isEmpty()) {
-                            viewModel.onEvent(AddEditMachineEvent.EnteredMax(null))
+                            viewModel.onEvent(AddEditExerciseEvent.EnteredMax(null))
                         } else if (newText.matches(Regex("^\\d*\\.?\\d*$"))) {
-                            viewModel.onEvent(AddEditMachineEvent.EnteredMax(newText.toFloatOrNull() ?: 0f))
+                            viewModel.onEvent(AddEditExerciseEvent.EnteredMax(newText.toFloatOrNull() ?: 0f))
                         }
                     },
                     label = { Text("Poids max (kg)") },
@@ -74,8 +74,8 @@ fun AddMachineDialog(
 
                 // Description
                 OutlinedTextField(
-                    value = machineState.description,
-                    onValueChange = { viewModel.onEvent(AddEditMachineEvent.EnteredDescription(it)) },
+                    value = exerciseState.description,
+                    onValueChange = { viewModel.onEvent(AddEditExerciseEvent.EnteredDescription(it)) },
                     label = { Text("Description") },
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
@@ -83,15 +83,15 @@ fun AddMachineDialog(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(text = "Terminé")
                     Checkbox(
-                        checked = machineState.isDone,
+                        checked = exerciseState.isDone,
                         onCheckedChange = { 
-                            viewModel.onEvent(AddEditMachineEvent.MachineDone)
-                            if (machineState.isDone) showValidationError = false
+                            viewModel.onEvent(AddEditExerciseEvent.ExerciseDone)
+                            if (exerciseState.isDone) showValidationError = false
                         }
                     )
                 }
 
-                if (showValidationError && !machineState.isDone) { // message d'erreur qui dépend de la variable local en mutableStateOf
+                if (showValidationError && !exerciseState.isDone) { 
                     Text(
                         text = "Veuillez cocher 'Terminé' pour enregistrer",
                         color = Color.Red,
@@ -103,11 +103,11 @@ fun AddMachineDialog(
         },
         confirmButton = {
             TextButton(onClick = {
-                if (machineState.isDone) { 
-                    viewModel.onEvent(AddEditMachineEvent.SaveMachine)
+                if (exerciseState.isDone) { 
+                    viewModel.onEvent(AddEditExerciseEvent.SaveExercise)
                     onSave()
                 } else {
-                    showValidationError = true // si c'est pas terminé alors change a tru le message d'erreure qui s'affiche dans le truc
+                    showValidationError = true 
                 }
             }) {
                 Text("Enregistrer")

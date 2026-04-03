@@ -25,29 +25,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.muscuapp_vmob_1.data.AddEditMachineEvent
-import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditMachineViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciceViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.MachineUiState
-import com.example.muscuapp_vmob_1.ui.views.components.ExerciceCard
+import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
+import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciseViewModel
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseUiState
+import com.example.muscuapp_vmob_1.ui.views.components.ExerciseCard
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 
 
 @Composable
-fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController) {
-    val listViewModel: ListExerciceViewModel = hiltViewModel()
-    val editViewModel: AddEditMachineViewModel = hiltViewModel()
-    val machines by listViewModel.machines.collectAsState()
+fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController) {
+    val listViewModel: ListExerciseViewModel = hiltViewModel()
+    val editViewModel: AddEditExerciseViewModel = hiltViewModel()
+    val exercises by listViewModel.exercises.collectAsState()
     
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
-        AddMachineDialog(
+        AddExerciseDialog(
             viewModel = editViewModel,
             onDismiss = { showDialog = false },
             onSave = {
                 showDialog = false
-                // No need to navigate, the list should refresh via Flow/StateFlow
             }
         )
     }
@@ -61,7 +60,7 @@ fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController
         ) {
             SearchBar( modifier = Modifier.weight(1f))
             Button(onClick = {
-                editViewModel.onEvent(AddEditMachineEvent.ResetForm)
+                editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
                 showDialog = true
             },
                 colors = ButtonDefaults.buttonColors(
@@ -69,20 +68,22 @@ fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController
                 contentColor = Color.White
             ),
                 shape = RoundedCornerShape(6.dp),
-                modifier = Modifier.padding(5.dp)
+                modifier = Modifier
+                    .padding(5.dp)
+
             )
             {
                 Text("+")
             }
         }
-        when (machines) {
+        when (exercises) {
 
-            is MachineUiState.Loading -> {
+            is ExerciseUiState.Loading -> {
                 Text("Chargement...", modifier = Modifier.fillMaxWidth())
             }
 
 
-            is MachineUiState.Empty -> {
+            is ExerciseUiState.Empty -> {
                 Column(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -92,7 +93,7 @@ fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController
                     Text("Pas d’entraînement trouvé")
                     Button(
                         onClick = {
-                            editViewModel.onEvent(AddEditMachineEvent.ResetForm)
+                            editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
                             showDialog = true
                         },
                         colors = ButtonDefaults.buttonColors(
@@ -102,24 +103,29 @@ fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController
                         shape = RoundedCornerShape(15.dp)
                     )
                     {
-                        Text("Ajouter une machine")
+                        Text("Ajouter un exercice")
                     }
                 }
             }
 
 
-            is MachineUiState.Success -> {
-                val machinesList = (machines as MachineUiState.Success).machines
+            is ExerciseUiState.Success -> {
+                val exercisesList = (exercises as ExerciseUiState.Success).exercises
                 LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp)
+
+                    ,
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(machinesList) { machine ->
-                        ExerciceCard(
-                            machine = machine,
-                            onDelete = { listViewModel.deleteMachine(machine) },
-                            onEdit = { selectedMachine ->
-                                editViewModel.onEvent(AddEditMachineEvent.LoadMachine(selectedMachine))
+                    items(exercisesList) { exercise ->
+                        ExerciseCard(
+                            exercise = exercise,
+                            onDelete = { listViewModel.deleteExercise(exercise) },
+                            onEdit = { selectedExercise ->
+                                editViewModel.onEvent(AddEditExerciseEvent.LoadExercise(selectedExercise))
                                 showDialog = true
                             }
                         )
@@ -127,7 +133,7 @@ fun ListExercice(innerPaddingValues: PaddingValues, navController: NavController
                 }
             }
 
-            is MachineUiState.Error -> {
+            is ExerciseUiState.Error -> {
                 Text("Erreur lors du chargement", color = Color.Red)
             }
         }

@@ -2,10 +2,10 @@ package com.example.muscuapp_vmob_1.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.muscuapp_vmob_1.data.repository.exercices.MachineFichierRepository
-import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRepository
-import com.example.muscuapp_vmob_1.data.repository.exercices.MachineRoomRepository
-import com.example.muscuapp_vmob_1.data.source.MachineDao
+import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseFichierRepository
+import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRepository
+import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRoomRepository
+import com.example.muscuapp_vmob_1.data.source.ExerciseDao
 import com.example.muscuapp_vmob_1.data.source.MuscuDataBase
 import dagger.Module
 import dagger.Provides
@@ -32,18 +32,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMachineDao(db: MuscuDataBase): MachineDao {
+    fun provideExerciseDao(db: MuscuDataBase): ExerciseDao {
         return db.dao()
     }
 
     @Provides
     @Singleton
-    fun provideMachineRepository(
+    fun provideExerciseRepository(
         @ApplicationContext context: Context,
-        dao: MachineDao
-    ): MachineRepository {
+        dao: ExerciseDao
+    ): ExerciseRepository {
         // Switch rapide :
-        //return MachineFichierRepository(context)  // ← JSON
-        return MachineRoomRepository(dao)           // ← Room
+        //return ExerciseFichierRepository(context)  // ← JSON
+        return ExerciseRoomRepository(dao)           // ← Room
     }
 }
