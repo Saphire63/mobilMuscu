@@ -1,13 +1,14 @@
-package com.example.muscuapp_vmob_1.domain.use_cases
+package com.example.muscuapp_vmob_1.domain.use_cases.exercise
 
 import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRepository
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class DeleteExerciseUseCase @Inject constructor(
+class GetExercisesUseCase @Inject constructor(
     private val repository: ExerciseRepository
 ) {
-    suspend operator fun invoke(exercise: ExerciseVM) {
-        repository.deleteExercise(exercise)
+    operator fun invoke(): Flow<List<ExerciseVM>> {
+        return repository.getExercises()
     }
 }

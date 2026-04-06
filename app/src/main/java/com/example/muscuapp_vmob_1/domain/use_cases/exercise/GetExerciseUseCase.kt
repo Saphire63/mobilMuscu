@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.domain.use_cases
+package com.example.muscuapp_vmob_1.domain.use_cases.exercise
 
 import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRepository
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
