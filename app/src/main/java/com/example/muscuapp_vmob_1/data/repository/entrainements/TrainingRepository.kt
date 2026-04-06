@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface TrainingRepository {
     fun getTraining(): Flow<List<TrainingVM>>
 
-    suspend fun getTrainingWithExercise(id: Int): TrainingWithExercises
+    suspend fun getTrainingWithExercise(id: Int): TrainingWithExercises // l'entity avec des exercises dedans
 
+    suspend fun upsertTraining(training: TrainingVM)
 
 }
