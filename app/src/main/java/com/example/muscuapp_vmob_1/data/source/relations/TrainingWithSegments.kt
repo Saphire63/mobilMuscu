@@ -9,7 +9,7 @@ data class TrainingWithSegments (
     @Embedded val training: TrainingEntity,
     @Relation(
         parentColumn = "id",
-        entityColumn = "id",
+        entityColumn = "trainingId",
     )
     val segments: List<TrainingSegmentsEntity> // liste de segments avec leurs exercices associés
 )

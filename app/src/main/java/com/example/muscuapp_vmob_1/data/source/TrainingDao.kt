@@ -5,11 +5,8 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.example.muscuapp_vmob_1.data.source.relations.SegmentWithExercises
 import com.example.muscuapp_vmob_1.data.source.relations.TrainingWithSegments
 import com.example.muscuapp_vmob_1.domain.model.TrainingEntity
-import com.example.muscuapp_vmob_1.domain.model.TrainingSegmentsEntity
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,7 +14,7 @@ interface TrainingDao {
 
 
     @Query("SELECT * FROM training")
-    fun getTrainings(): Flow<List<TrainingVM>>
+    fun getTrainings(): Flow<List<TrainingEntity>>
 
     @Transaction
     @Query("SELECT * FROM training WHERE id =:id")

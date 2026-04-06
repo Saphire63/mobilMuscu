@@ -3,7 +3,7 @@ package com.example.muscuapp_vmob_1.di
 import android.content.Context
 import androidx.room.Room
 import com.example.muscuapp_vmob_1.data.repository.entrainements.TrainingRepository
-import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseFichierRepository
+import com.example.muscuapp_vmob_1.data.repository.entrainements.TrainingRoomRepository
 import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRepository
 import com.example.muscuapp_vmob_1.data.repository.exercices.ExerciseRoomRepository
 import com.example.muscuapp_vmob_1.data.source.ExerciseDao
@@ -69,7 +69,6 @@ object AppModule {
         trainingDao: TrainingDao,
         trainingSegmentsDao: TrainingSegmentsDao,
     ): TrainingRepository{
-        return TrainingRoomRepository(trainingDao, trainingSegmentsDao )
+        return TrainingRoomRepository(trainingDao, trainingSegmentsDao)
     }
-    )
 }
