@@ -1,28 +1,33 @@
 package com.example.muscuapp_vmob_1.data.source
 
+import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.example.muscuapp_vmob_1.data.source.relations.SegmentWithExercises
+import com.example.muscuapp_vmob_1.data.source.relations.TrainingWithSegments
 import com.example.muscuapp_vmob_1.domain.model.TrainingEntity
-import com.example.muscuapp_vmob_1.domain.model.TrainingWithExercises
+import com.example.muscuapp_vmob_1.domain.model.TrainingSegmentsEntity
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import kotlinx.coroutines.flow.Flow
 
+@Dao
 interface TrainingDao {
 
 
     @Query("SELECT * FROM training")
-    fun getTraining(): Flow<List<TrainingVM>>
+    fun getTrainings(): Flow<List<TrainingVM>>
 
     @Transaction
     @Query("SELECT * FROM training WHERE id =:id")
-    suspend fun getTrainingWithExercise(id: Int): TrainingWithExercises
+    suspend fun getTrainingWithSegments(id: Int): TrainingWithSegments
 
     @Delete
-    suspend fun deleteTraining(trainingVM: TrainingEntity)
+    suspend fun deleteTraining(training: TrainingEntity)
 
     @Upsert
     suspend fun upsertTraining(training: TrainingEntity)
+
 
 }

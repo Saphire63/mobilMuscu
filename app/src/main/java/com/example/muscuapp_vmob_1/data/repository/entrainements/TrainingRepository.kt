@@ -1,13 +1,15 @@
 package com.example.muscuapp_vmob_1.data.repository.entrainements
 
-import com.example.muscuapp_vmob_1.domain.model.TrainingWithExercises
+import com.example.muscuapp_vmob_1.data.source.relations.TrainingWithSegments
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import kotlinx.coroutines.flow.Flow
 
 interface TrainingRepository {
-    fun getTraining(): Flow<List<TrainingVM>>
+    fun getTrainings(): Flow<List<TrainingVM>>
 
-    suspend fun getTrainingWithExercise(id: Int): TrainingWithExercises // l'entity avec des exercises dedans
+    suspend fun getTrainingWithSegments(id: Int): TrainingWithSegments
+
+    suspend fun deleteTraining(training: TrainingVM)
 
     suspend fun upsertTraining(training: TrainingVM)
 

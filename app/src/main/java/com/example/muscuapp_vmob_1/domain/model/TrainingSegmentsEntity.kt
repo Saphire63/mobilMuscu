@@ -7,6 +7,7 @@ import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity
 import com.example.muscuapp_vmob_1.domain.model.TrainingEntity
 
 @Entity(
+    tableName = "training_segment",
     foreignKeys = [
         ForeignKey(
             entity = TrainingEntity::class,

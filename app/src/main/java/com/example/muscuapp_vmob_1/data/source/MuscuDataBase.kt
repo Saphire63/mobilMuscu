@@ -6,7 +6,9 @@ import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity
 
 @Database(entities = [ExerciseEntity::class], version = 6, exportSchema = false)
 abstract class MuscuDataBase : RoomDatabase() {
-    abstract fun dao(): ExerciseDao
+    abstract fun exerciseDao(): ExerciseDao
+    abstract fun trainingDao(): TrainingDao
+    abstract fun trainingSegmentsDao(): TrainingSegmentsDao
     companion object {
         const val DATABASE_NAME = "muscu.db"
     }
