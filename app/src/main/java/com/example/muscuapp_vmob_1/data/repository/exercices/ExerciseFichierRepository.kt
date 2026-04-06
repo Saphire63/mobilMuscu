@@ -3,7 +3,7 @@ package com.example.muscuapp_vmob_1.data.repository.exercices
 import android.content.Context
 import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity
 import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity.Companion.toVM
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

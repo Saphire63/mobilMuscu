@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciseViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseUiState
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
 import com.example.muscuapp_vmob_1.ui.views.components.ExerciseCard
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 

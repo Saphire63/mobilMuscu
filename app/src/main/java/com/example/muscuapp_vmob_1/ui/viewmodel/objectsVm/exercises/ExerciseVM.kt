@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines
+package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises
 
 import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity
 import kotlinx.serialization.Serializable

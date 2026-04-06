@@ -1,6 +1,6 @@
 package com.example.muscuapp_vmob_1.data
 
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 
 sealed interface AddEditExerciseEvent {
     data class EnteredId(val id: Int): AddEditExerciseEvent

@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.domain.use_cases.DeleteExerciseUseCase
 import com.example.muscuapp_vmob_1.domain.use_cases.GetExercisesUseCase
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseUiState
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

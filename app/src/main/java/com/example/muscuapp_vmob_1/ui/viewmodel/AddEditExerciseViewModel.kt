@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.domain.use_cases.UpsertExerciseUseCase
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

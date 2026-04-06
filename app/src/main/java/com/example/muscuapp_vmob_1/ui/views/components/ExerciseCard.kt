@@ -30,7 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.muscuapp_vmob_1.domain.use_cases.CalculateChargeUseCase
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 
 @Composable
 fun ExerciseCard(

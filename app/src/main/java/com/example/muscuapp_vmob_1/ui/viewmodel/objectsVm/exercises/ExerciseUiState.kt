@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines
+package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises
 
 sealed class ExerciseUiState {
     object Loading : ExerciseUiState()

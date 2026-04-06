@@ -3,7 +3,7 @@ package com.example.muscuapp_vmob_1.data.repository.entrainements
 import com.example.muscuapp_vmob_1.domain.model.Entrainements
 import kotlinx.coroutines.flow.Flow
 
-class EntrainementsFichierRepository : EntrainementsRepository {
+class TrainingFichierRepository : TrainingRepository {
     override fun getEntrainements(): Flow<List<Entrainements>> {
         TODO("Not yet implemented")
     }

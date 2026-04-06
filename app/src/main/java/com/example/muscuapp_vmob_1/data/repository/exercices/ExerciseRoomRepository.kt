@@ -2,8 +2,8 @@ package com.example.muscuapp_vmob_1.data.repository.exercices
 
 import com.example.muscuapp_vmob_1.data.source.ExerciseDao
 import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity.Companion.toVM
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.machines.ExerciseVM.Companion.toEntity
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM.Companion.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
