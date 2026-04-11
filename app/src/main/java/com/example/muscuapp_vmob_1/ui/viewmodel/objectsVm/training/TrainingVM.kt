@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TrainingVM (
-    val id: Int,
-    val name: String,
-    val type: String,
-    val description: String,
+    val id: Int? = 0 ,
+    val name: String = "",
+    val type: String = "",
+    val description: String = "",
 ){
     companion object{
         fun TrainingVM.toEntity(): TrainingEntity{

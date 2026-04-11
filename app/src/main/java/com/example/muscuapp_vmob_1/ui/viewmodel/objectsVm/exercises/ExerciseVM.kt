@@ -15,8 +15,9 @@ data class ExerciseVM (
     companion object{
         fun fromEntity(exercise: ExerciseEntity): ExerciseVM{
             return ExerciseVM(
-                name= exercise.name,
-                max= exercise.max,
+                id = exercise.id ?: 0,
+                name = exercise.name,
+                max = exercise.max,
                 description = exercise.description
             )
         }
