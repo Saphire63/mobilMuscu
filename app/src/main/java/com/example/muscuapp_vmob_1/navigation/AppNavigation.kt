@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.muscuapp_vmob_1.ui.views.ListExercise
+import com.example.muscuapp_vmob_1.ui.views.TrainingScreen
 import com.example.muscuapp_vmob_1.ui.views.components.AppTopBar
 import com.example.muscuapp_vmob_1.ui.views.components.AppBottomBar
 
@@ -38,11 +39,11 @@ fun AppNavigation(){
                 ListExercise(innerPaddingValues = innerPadding, navController)
             }
 
-            composable(Screen.Entrainements.route) {
-                Text("Workout")
+            composable(Screen.Training.route) {
+                TrainingScreen(innerPadding= innerPadding)
             }
 
-            composable(Screen.Calendrier.route) {
+            composable(Screen.Calendar.route) {
                 Text("Calendar")
             }
         }

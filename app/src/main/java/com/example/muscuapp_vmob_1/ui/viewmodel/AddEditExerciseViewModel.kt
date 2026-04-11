@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.domain.use_cases.exercise.UpsertExerciseUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,9 +27,6 @@ class AddEditExerciseViewModel @Inject constructor(
 
     fun onEvent(event: AddEditExerciseEvent) {
         when (event) {
-            is AddEditExerciseEvent.EnteredId -> {
-                _exercise.value = _exercise.value.copy(id = event.id)
-            }
             is AddEditExerciseEvent.EnteredName -> {
                 _exercise.value = _exercise.value.copy(name = event.name)
             }

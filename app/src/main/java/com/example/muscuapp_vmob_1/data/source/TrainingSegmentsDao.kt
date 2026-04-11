@@ -15,10 +15,10 @@ interface TrainingSegmentsDao {
     @Upsert
     suspend fun upsertSegments(segments: List<TrainingSegmentsEntity>)
 
-    @Query("SELECT MAX(`order`) FROM training_segment WHERE trainingId = :trainingId")
+    @Query("SELECT MAX('order') FROM training_segment WHERE trainingId = :trainingId")
     suspend fun getMaxOrder(trainingId: Int): Int?
 
-    @Query("SELECT * FROM training_segment WHERE trainingId = :trainingId ORDER BY `order` ASC")
+    @Query("SELECT * FROM training_segment WHERE trainingId = :trainingId ORDER BY 'order' ASC")
     fun getSegmentsForTraining(trainingId: Int): Flow<List<TrainingSegmentsEntity>>
 
     @Delete

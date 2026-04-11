@@ -27,8 +27,8 @@ fun AppBottomBar(navController: NavController) {
     val items = listOf(
         Screen.Home,
         Screen.Exercises,
-        Screen.Entrainements,
-        Screen.Calendrier
+        Screen.Training,
+        Screen.Calendar
     )
     val icons = listOf(
         Icons.Filled.Home,

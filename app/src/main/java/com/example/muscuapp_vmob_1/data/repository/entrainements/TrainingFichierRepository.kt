@@ -1,16 +1,20 @@
 package com.example.muscuapp_vmob_1.data.repository.entrainements
 
-import com.example.muscuapp_vmob_1.domain.model.Entrainements
-import com.example.muscuapp_vmob_1.domain.model.TrainingWithExercises
+import com.example.muscuapp_vmob_1.data.source.relations.TrainingWithSegments
+import com.example.muscuapp_vmob_1.domain.model.TrainingSegmentsEntity
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import kotlinx.coroutines.flow.Flow
 
 class TrainingFichierRepository : TrainingRepository {
-    override fun getTraining(): Flow<List<TrainingVM>> {
+    override fun getTrainings(): Flow<List<TrainingVM>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getTrainingWithExercise(id: Int): TrainingWithExercises {
+    override suspend fun getTrainingWithSegments(id: Int): TrainingWithSegments {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteTraining(training: TrainingVM) {
         TODO("Not yet implemented")
     }
 

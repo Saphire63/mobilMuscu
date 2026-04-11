@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 
 @Composable

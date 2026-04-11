@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciseViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
