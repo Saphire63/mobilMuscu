@@ -41,8 +41,6 @@ fun TrainingScreen(innerPadding: PaddingValues){
                 modifier = Modifier.weight(1f)
             )
             Button(onClick = {
-                editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
-                showDialog = true
             },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red,

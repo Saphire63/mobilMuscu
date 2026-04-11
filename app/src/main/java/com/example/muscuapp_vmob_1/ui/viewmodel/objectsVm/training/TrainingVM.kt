@@ -5,15 +5,23 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class TrainingVM (
-    val id: Int? = 0 ,
+    val id: Int = 0 ,
     val name: String = "",
     val type: String = "",
     val description: String = "",
 ){
     companion object{
+        fun fromVM(trainingEntity: TrainingEntity): TrainingVM{
+            return TrainingVM(
+                id = trainingEntity.id?: 0,
+                name = trainingEntity.name,
+                type = trainingEntity.type,
+                description = trainingEntity.description
+            )
+        }
         fun TrainingVM.toEntity(): TrainingEntity{
             return TrainingEntity(
-                id = id,
+                id = if(id==0) null else id,
                 name = name,
                 type = type,
                 description = description

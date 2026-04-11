@@ -15,13 +15,6 @@ data class ExerciseEntity (
 
     ){
     companion object{
-        fun ExerciseEntity.toVM(): ExerciseVM {
-            return ExerciseVM(
-                id = id ?: 0,
-                name = name,
-                max = max,
-                description = description
-            )
-        }
+
     }
 }
