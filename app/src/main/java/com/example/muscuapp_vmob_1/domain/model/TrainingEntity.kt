@@ -12,14 +12,5 @@ data class TrainingEntity (
     val description: String,
 ){
     companion object{
-        fun TrainingEntity.toVM(): TrainingVM {
-            return TrainingVM(
-                id = id ?: 0,
-                name = name,
-                type = type,
-                description = description
-
-            )
-        }
     }
 }

@@ -3,7 +3,6 @@ package com.example.muscuapp_vmob_1.data.repository.entrainements
 import com.example.muscuapp_vmob_1.data.source.TrainingDao
 import com.example.muscuapp_vmob_1.data.source.TrainingSegmentsDao
 import com.example.muscuapp_vmob_1.data.source.relations.TrainingWithSegments
-import com.example.muscuapp_vmob_1.domain.model.TrainingEntity.Companion.toVM
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM.Companion.toEntity
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +18,7 @@ class TrainingRoomRepository @Inject constructor(
 
     override fun getTrainings(): Flow<List<TrainingVM>> {
         return trainingDao.getTrainings().map { entities ->
-            entities.map { it.toVM() }
+            entities.map { TrainingVM.fromEntity(it) }
         }
     }
 

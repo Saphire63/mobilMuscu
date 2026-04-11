@@ -11,7 +11,7 @@ data class TrainingVM (
     val description: String = "",
 ){
     companion object{
-        fun fromVM(trainingEntity: TrainingEntity): TrainingVM{
+        fun fromEntity(trainingEntity: TrainingEntity): TrainingVM{
             return TrainingVM(
                 id = trainingEntity.id?: 0,
                 name = trainingEntity.name,
