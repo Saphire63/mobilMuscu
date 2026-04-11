@@ -6,6 +6,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
 
 @Composable
@@ -29,8 +30,8 @@ fun AddTrainingDialog(
         },
         confirmButton = {
             TextButton(onClick = {
-                viewModel.
-                onSave()
+                viewModel.onEvent(event = AddEditTrainingEvent.SaveTraining)
+                onSave() //Todo
             }) { }
         }
     )
