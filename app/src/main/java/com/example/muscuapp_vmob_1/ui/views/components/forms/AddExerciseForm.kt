@@ -35,7 +35,7 @@ fun AddExerciseDialog(
 
     var showValidationError by remember { mutableStateOf(false) }
 
-    // État local pour le texte du poids afin de permettre une saisie fluide (ex: "", ".", "10.")
+    // État local pour le texte du poids permettre une saisie fluide (ex: "", ".", "10.")
     var weightText by remember(exerciseState.id) {
         mutableStateOf(exerciseState.max?.let {
             if (it % 1.0f == 0.0f) it.toInt().toString() else it.toString()
