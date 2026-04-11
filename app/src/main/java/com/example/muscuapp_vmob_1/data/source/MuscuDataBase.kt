@@ -8,7 +8,7 @@ import com.example.muscuapp_vmob_1.domain.model.TrainingSegmentsEntity
 
 @Database(
     entities = [ExerciseEntity::class, TrainingEntity::class, TrainingSegmentsEntity::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class MuscuDataBase : RoomDatabase() {

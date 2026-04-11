@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListExerciseViewModel @Inject constructor(
+class ExerciseScreenViewModel @Inject constructor(
     private val getExercisesUseCase: GetExercisesUseCase,
     private val deleteExerciseUseCase: DeleteExerciseUseCase
 ) : ViewModel() {

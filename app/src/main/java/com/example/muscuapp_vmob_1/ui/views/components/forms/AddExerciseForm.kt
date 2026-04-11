@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.views
+package com.example.muscuapp_vmob_1.ui.views.components.forms
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
+import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 
 @Composable
@@ -35,7 +35,7 @@ fun AddExerciseDialog(
 
     var showValidationError by remember { mutableStateOf(false) }
 
-    // État local pour le texte du poids afin de permettre une saisie fluide (ex: "", ".", "10.")
+    // État local pour le texte du poids permettre une saisie fluide (ex: "", ".", "10.")
     var weightText by remember(exerciseState.id) {
         mutableStateOf(exerciseState.max?.let {
             if (it % 1.0f == 0.0f) it.toInt().toString() else it.toString()

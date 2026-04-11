@@ -24,28 +24,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.example.muscuapp_vmob_1.data.AddEditExerciseEvent
-import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.ListExerciseViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
-import com.example.muscuapp_vmob_1.ui.views.components.ExerciseCard
+import com.example.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
+import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
+import com.example.muscuapp_vmob_1.ui.viewmodel.TrainingScreenViewModel
+import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingUiState
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
-
+import com.example.muscuapp_vmob_1.ui.views.components.TrainingCard
+import com.example.muscuapp_vmob_1.ui.views.components.forms.AddTrainingDialog
 
 @Composable
-fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController) {
-    val listViewModel: ListExerciseViewModel = hiltViewModel()
-    val editViewModel: AddEditExerciseViewModel = hiltViewModel()
-    val exercises by listViewModel.exercises.collectAsState()
-    val searchQuery by listViewModel.searchQuery.collectAsState()
-    
+fun TrainingScreen(innerPadding: PaddingValues){
+    val trainingViewModel: TrainingScreenViewModel = hiltViewModel()
+    val addEditTrainingViewModel: AddEditTrainingViewModel = hiltViewModel()
+    val trainings by trainingViewModel.trainings.collectAsState()
+    val searchQuery by trainingViewModel.searchQuery.collectAsState()
+
     var showDialog by remember { mutableStateOf(false) }
 
-    if (showDialog) {
-        AddExerciseDialog(
-            viewModel = editViewModel,
-            onDismiss = { showDialog = false },
+    if (showDialog){
+        AddTrainingDialog(
+            viewModel = addEditTrainingViewModel,
+            onDismiss = {showDialog = false},
             onSave = {
                 showDialog = false
             }
@@ -60,18 +59,20 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             SearchBar(
+                text = "Rechercher un entrainement",
                 query = searchQuery,
-                onQueryChange = { listViewModel.onSearchQueryChange(it) },
+                onQueryChange = { trainingViewModel.onSearchQueryChange(it) },
                 modifier = Modifier.weight(1f)
             )
+
             Button(onClick = {
-                editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
+                addEditTrainingViewModel.onEvent(AddEditTrainingEvent.ResetForm)
                 showDialog = true
             },
                 colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Red,
-                contentColor = Color.White
-            ),
+                    containerColor = Color.Red,
+                    contentColor = Color.White
+                ),
                 shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
                     .padding(5.dp)
@@ -81,56 +82,50 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                 Text("+")
             }
         }
-        when (exercises) {
 
-            is ExerciseUiState.Loading -> {
-                Text("Chargement...", modifier = Modifier.fillMaxWidth())
+        when (trainings) {
+            is TrainingUiState.Loading -> {
+                Text("Chargement...", modifier = Modifier.fillMaxWidth().padding(16.dp))
             }
 
-
-            is ExerciseUiState.Empty -> {
+            is TrainingUiState.Empty -> {
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(if (searchQuery.isEmpty()) "Pas d’exercices trouvé" else "Aucun résultat pour \"$searchQuery\"")
+                    Text(if (searchQuery.isEmpty()) "Pas d’entraînements trouvés" else "Aucun résultat pour \"$searchQuery\"")
                     Button(
                         onClick = {
-                            editViewModel.onEvent(AddEditExerciseEvent.ResetForm)
+                            addEditTrainingViewModel.onEvent(AddEditTrainingEvent.ResetForm)
                             showDialog = true
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Red,
                             contentColor = Color.White
                         ),
-                        shape = RoundedCornerShape(15.dp)
-                    )
-                    {
-                        Text("Ajouter un exercice")
+                        shape = RoundedCornerShape(15.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
+                        Text("Ajouter un entraînement")
                     }
                 }
             }
 
-
-            is ExerciseUiState.Success -> {
-                val exercisesList = (exercises as ExerciseUiState.Success).exercises
+            is TrainingUiState.Success -> {
+                val trainingList = (trainings as TrainingUiState.Success).trainings
                 LazyColumn(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp)
-
-                    ,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    items(exercisesList) { exercise ->
-                        ExerciseCard(
-                            exercise = exercise,
-                            onDelete = { listViewModel.deleteExercise(exercise) },
-                            onEdit = { selectedExercise ->
-                                editViewModel.onEvent(AddEditExerciseEvent.LoadExercise(selectedExercise))
+                    items(trainingList) { training ->
+                        TrainingCard(
+                            training = training,
+                            onDelete = { trainingViewModel.deleteTraining(training) },
+                            onEdit = { selectedTraining ->
+                                addEditTrainingViewModel.onEvent(AddEditTrainingEvent.LoadTraining(selectedTraining))
                                 showDialog = true
                             }
                         )
@@ -138,8 +133,12 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                 }
             }
 
-            is ExerciseUiState.Error -> {
-                Text("Erreur lors du chargement", color = Color.Red)
+            is TrainingUiState.Error -> {
+                Text(
+                    text = (trainings as TrainingUiState.Error).message,
+                    color = Color.Red,
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
+                )
             }
         }
     }

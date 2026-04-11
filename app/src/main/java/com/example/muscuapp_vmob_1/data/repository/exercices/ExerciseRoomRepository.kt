@@ -1,7 +1,6 @@
 package com.example.muscuapp_vmob_1.data.repository.exercices
 
 import com.example.muscuapp_vmob_1.data.source.ExerciseDao
-import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity.Companion.toVM
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM.Companion.toEntity
 import kotlinx.coroutines.flow.Flow
@@ -13,12 +12,12 @@ class ExerciseRoomRepository @Inject constructor(
 ) : ExerciseRepository {
     override fun getExercises(): Flow<List<ExerciseVM>> {
         return dao.getExercises().map { entities ->
-            entities.map { it.toVM() }
+            entities.map { ExerciseVM.fromEntity(it) }
         }
     }
 
     override suspend fun getExercise(id: Int): ExerciseVM? {
-        return dao.getExercise(id)?.toVM()
+        return dao.getExercise(id)?.let { ExerciseVM.fromEntity(it) }
     }
 
     override suspend fun upsertExercise(exercise: ExerciseVM) {
