@@ -61,7 +61,6 @@ fun TrainingCard(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Cercle ou icône pour le type d'entraînement
             Box(
                 modifier = Modifier
                     .size(50.dp)
