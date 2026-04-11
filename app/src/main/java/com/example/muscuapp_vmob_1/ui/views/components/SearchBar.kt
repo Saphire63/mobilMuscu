@@ -12,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.w3c.dom.Text
 
 
 @Composable
 fun SearchBar(
+    text: String,
     query: String,
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -25,7 +27,7 @@ fun SearchBar(
         onValueChange = onQueryChange,
         modifier = modifier
             .height(56.dp),
-        placeholder = { Text("Rechercher un exercice...", color = Color.Gray) },
+        placeholder = { Text(text, color = Color.Gray) },
         leadingIcon = {
             Icon(Icons.Default.Search, contentDescription = null, tint = Color.Gray)
         },

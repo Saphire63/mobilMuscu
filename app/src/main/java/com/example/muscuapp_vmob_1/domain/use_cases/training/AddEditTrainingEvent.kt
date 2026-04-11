@@ -9,5 +9,7 @@ sealed interface AddEditTrainingEvent {
     data class EnteredType(val type: String): AddEditTrainingEvent
     data object SaveTraining: AddEditTrainingEvent
     data class LoadTraining(val training: TrainingVM): AddEditTrainingEvent
+    
+    data class ToggleExerciseSelection(val exercise: ExerciseVM): AddEditTrainingEvent
     data object ResetForm: AddEditTrainingEvent
 }

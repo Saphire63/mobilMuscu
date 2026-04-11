@@ -17,6 +17,10 @@ interface TrainingDao {
     fun getTrainings(): Flow<List<TrainingEntity>>
 
     @Transaction
+    @Query("SELECT * FROM training")
+    fun getTrainingsWithSegments(): Flow<List<TrainingWithSegments>>
+
+    @Transaction
     @Query("SELECT * FROM training WHERE id =:id")
     suspend fun getTrainingWithSegments(id: Int): TrainingWithSegments
 
@@ -24,7 +28,7 @@ interface TrainingDao {
     suspend fun deleteTraining(training: TrainingEntity)
 
     @Upsert
-    suspend fun upsertTraining(training: TrainingEntity)
+    suspend fun upsertTraining(training: TrainingEntity): Long
 
 
 }
