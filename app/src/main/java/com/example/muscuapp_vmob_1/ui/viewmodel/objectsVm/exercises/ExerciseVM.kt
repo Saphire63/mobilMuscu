@@ -1,5 +1,6 @@
 package com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises
 
+import android.graphics.Bitmap
 import com.example.muscuapp_vmob_1.domain.model.ExerciseEntity
 import kotlinx.serialization.Serializable
 
@@ -10,6 +11,7 @@ data class ExerciseVM (
     val name: String ="",
     val max: Float? = null,
     val description: String = "",
+    val imageUri: String? = null,
     val isDone: Boolean = false // ne sert que pour le formulaire d'ajout et d'édit
 ){
     companion object{
@@ -18,7 +20,8 @@ data class ExerciseVM (
                 id = exercise.id ?: 0,
                 name = exercise.name,
                 max = exercise.max,
-                description = exercise.description
+                description = exercise.description,
+                imageUri = exercise.imageUri
             )
         }
 
@@ -27,7 +30,8 @@ data class ExerciseVM (
                 id = if (id == 0) null else id,
                 name = name,
                 max = max,
-                description = description
+                description = description,
+                imageUri = imageUri
             )
         }
     }

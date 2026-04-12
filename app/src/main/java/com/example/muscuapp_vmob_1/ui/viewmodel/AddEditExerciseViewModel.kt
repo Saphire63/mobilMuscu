@@ -1,5 +1,6 @@
 package com.example.muscuapp_vmob_1.ui.viewmodel
 
+import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,12 +9,16 @@ import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEven
 import com.example.muscuapp_vmob_1.domain.use_cases.exercise.UpsertExerciseUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @HiltViewModel
 class AddEditExerciseViewModel @Inject constructor(
-    private val upsertExerciseUseCase: UpsertExerciseUseCase
+    private val upsertExerciseUseCase: UpsertExerciseUseCase,
+    @ApplicationContext private val context: Context
 ): ViewModel() {
     private val _exercise = mutableStateOf(ExerciseVM())
     val exercise : State<ExerciseVM> = _exercise
@@ -36,6 +41,17 @@ class AddEditExerciseViewModel @Inject constructor(
             is AddEditExerciseEvent.EnteredDescription -> {
                 _exercise.value = _exercise.value.copy(description = event.description)
             }
+            is AddEditExerciseEvent.EnteredImageUri -> {
+                _exercise.value = _exercise.value.copy(imageUri = event.uri)
+            }
+            is AddEditExerciseEvent.UpdateImageUri -> {
+                viewModelScope.launch {
+                    val internalPath = saveImageToInternalStorage(event.uri)
+                    _exercise.value = _exercise.value.copy(imageUri = internalPath)
+                    // On sauvegarde immédiatement pour la carte
+                    upsertExerciseUseCase(_exercise.value)
+                }
+            }
             AddEditExerciseEvent.ExerciseDone ->
                 _exercise.value = _exercise.value.copy(isDone = !_exercise.value.isDone)
 
@@ -52,6 +68,25 @@ class AddEditExerciseViewModel @Inject constructor(
                     upsertExerciseUseCase(_exercise.value)
                 }
             }
+        }
+    }
+
+    private fun saveImageToInternalStorage(uri: android.net.Uri?): String? {
+        if (uri == null) return null
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            val fileName = "exercise_${System.currentTimeMillis()}.jpg"
+            val file = File(context.filesDir, fileName)
+
+            inputStream?.use { input ->
+                FileOutputStream(file).use { output ->
+                    input.copyTo(output)
+                }
+            }
+            file.absolutePath
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.muscuapp_vmob_1.ui.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.muscuapp_vmob_1.domain.use_cases.CalculateChargeUseCase
 import com.example.muscuapp_vmob_1.domain.use_cases.exercise.DeleteExerciseUseCase
 import com.example.muscuapp_vmob_1.domain.use_cases.exercise.GetExercisesUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
@@ -21,8 +22,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseScreenViewModel @Inject constructor(
     private val getExercisesUseCase: GetExercisesUseCase,
-    private val deleteExerciseUseCase: DeleteExerciseUseCase
+    private val deleteExerciseUseCase: DeleteExerciseUseCase,
+    private val calculateChargeUseCase: CalculateChargeUseCase
 ) : ViewModel() {
+
+    fun calculateCharge(percentStr: String, max: Float?): Float {
+        return calculateChargeUseCase(percentStr, max)
+    }
 
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()

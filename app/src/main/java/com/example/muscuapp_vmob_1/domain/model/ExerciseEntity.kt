@@ -12,6 +12,7 @@ data class ExerciseEntity (
     val name: String ="",
     val max: Float? = null,
     val description: String = "",
+    val imageUri: String?
 
     ){
     companion object{

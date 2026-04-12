@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -58,7 +62,8 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
             modifier= Modifier
                 .padding(5.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
+            horizontalArrangement = Arrangement.spacedBy(2.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             SearchBar(
                 text = "Rechercher un exercice...",
@@ -74,13 +79,13 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                 containerColor = Color.Red,
                 contentColor = Color.White
             ),
-                shape = RoundedCornerShape(6.dp),
                 modifier = Modifier
                     .padding(5.dp)
-
-            )
-            {
-                Text("+")
+                    .size(43.dp),
+                contentPadding = PaddingValues(0.dp),
+                shape = RoundedCornerShape(6.dp)
+            ) {
+                Icon(Icons.Default.Add, contentDescription = null)
             }
         }
         when (exercises) {
@@ -107,7 +112,7 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                             containerColor = Color.Red,
                             contentColor = Color.White
                         ),
-                        shape = RoundedCornerShape(15.dp)
+                        shape = RoundedCornerShape(16.dp)
                     )
                     {
                         Text("Ajouter un exercice")
@@ -132,9 +137,18 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                             exercise = exercise,
                             onDelete = { listViewModel.deleteExercise(exercise) },
                             onEdit = { selectedExercise ->
-                                editViewModel.onEvent(AddEditExerciseEvent.LoadExercise(selectedExercise))
+                                editViewModel.onEvent(
+                                    AddEditExerciseEvent.LoadExercise(
+                                        selectedExercise
+                                    )
+                                )
                                 showDialog = true
-                            }
+                            },
+                            onEditImage = { uri ->
+                                editViewModel.onEvent(AddEditExerciseEvent.LoadExercise(exercise))
+                                editViewModel.onEvent(AddEditExerciseEvent.UpdateImageUri(uri))
+                            },
+                            onCalculateCharge = {percent, max -> listViewModel.calculateCharge(percent, max)}
                         )
                     }
                 }

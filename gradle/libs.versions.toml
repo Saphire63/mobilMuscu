@@ -15,6 +15,7 @@ roomVersion = "2.6.1"
 daggerHiltVersion = "2.56.2"
 hiltNavigationComposeVersion = "1.2.0"
 ksp = "2.0.21-1.0.25"
+coil = "2.6.0"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -43,6 +44,7 @@ androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-com
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "daggerHiltVersion" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "daggerHiltVersion" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
