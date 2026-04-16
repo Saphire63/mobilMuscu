@@ -10,6 +10,8 @@ sealed interface AddEditTrainingEvent {
     data object SaveTraining: AddEditTrainingEvent
     data class LoadTraining(val training: TrainingVM): AddEditTrainingEvent
     
-    data class ToggleExerciseSelection(val exercise: ExerciseVM): AddEditTrainingEvent
+    data class AddExercise(val exercise: ExerciseVM): AddEditTrainingEvent
+    data class RemoveExerciseAt(val index: Int): AddEditTrainingEvent
+    data class MoveExercise(val fromIndex: Int, val toIndex: Int): AddEditTrainingEvent
     data object ResetForm: AddEditTrainingEvent
 }

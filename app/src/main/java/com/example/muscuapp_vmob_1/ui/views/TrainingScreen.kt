@@ -28,32 +28,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
-import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
+import androidx.navigation.NavController
+import com.example.muscuapp_vmob_1.navigation.Screen
 import com.example.muscuapp_vmob_1.ui.viewmodel.TrainingScreenViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingUiState
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 import com.example.muscuapp_vmob_1.ui.views.components.TrainingCard
-import com.example.muscuapp_vmob_1.ui.views.components.forms.AddTrainingDialog
 
 @Composable
-fun TrainingScreen(innerPadding: PaddingValues){
+fun TrainingScreen(innerPadding: PaddingValues, navController: NavController){
     val trainingViewModel: TrainingScreenViewModel = hiltViewModel()
-    val addEditTrainingViewModel: AddEditTrainingViewModel = hiltViewModel()
     val trainings by trainingViewModel.trainings.collectAsState()
     val searchQuery by trainingViewModel.searchQuery.collectAsState()
-
-    var showDialog by remember { mutableStateOf(false) }
-
-    if (showDialog){
-        AddTrainingDialog(
-            viewModel = addEditTrainingViewModel,
-            onDismiss = {showDialog = false},
-            onSave = {
-                showDialog = false
-            }
-        )
-    }
 
     Column() {
         Row (
@@ -71,8 +57,7 @@ fun TrainingScreen(innerPadding: PaddingValues){
             )
 
             Button(onClick = {
-                addEditTrainingViewModel.onEvent(AddEditTrainingEvent.ResetForm)
-                showDialog = true
+                navController.navigate(Screen.AddEditTraining.passId())
             },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red,
@@ -102,8 +87,7 @@ fun TrainingScreen(innerPadding: PaddingValues){
                     Text(if (searchQuery.isEmpty()) "Pas d’entraînements trouvés" else "Aucun résultat pour \"$searchQuery\"")
                     Button(
                         onClick = {
-                            addEditTrainingViewModel.onEvent(AddEditTrainingEvent.ResetForm)
-                            showDialog = true
+                            navController.navigate(Screen.AddEditTraining.passId())
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.Red,
@@ -130,8 +114,7 @@ fun TrainingScreen(innerPadding: PaddingValues){
                             training = training,
                             onDelete = { trainingViewModel.deleteTraining(training) },
                             onEdit = { selectedTraining ->
-                                addEditTrainingViewModel.onEvent(AddEditTrainingEvent.LoadTraining(selectedTraining))
-                                showDialog = true
+                                navController.navigate(Screen.AddEditTraining.passId(selectedTraining.id))
                             }
                         )
                     }

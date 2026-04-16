@@ -2,9 +2,11 @@ package com.example.muscuapp_vmob_1.ui.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
+import com.example.muscuapp_vmob_1.domain.use_cases.training.GetTrainingUseCase
 import com.example.muscuapp_vmob_1.domain.use_cases.training.UpsertTrainingUseCase
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,7 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AddEditTrainingViewModel @Inject constructor(
     private val upsertTrainingUseCase: UpsertTrainingUseCase,
-    private val getExercisesUseCase: GetExercisesUseCase
+    private val getExercisesUseCase: GetExercisesUseCase,
+    private val getTrainingUseCase: GetTrainingUseCase,
+    savedStateHandle: SavedStateHandle
 ): ViewModel(){
 
     private  val _training = mutableStateOf(TrainingVM())
@@ -31,6 +35,14 @@ class AddEditTrainingViewModel @Inject constructor(
     val availableExercises: StateFlow<List<ExerciseVM>> = _availableExercises.asStateFlow()
 
     init {
+        val trainingId = savedStateHandle.get<Int>("trainingId") ?: -1
+        if (trainingId != -1) {
+            viewModelScope.launch {
+                getTrainingUseCase(trainingId)?.let { loadedTraining ->
+                    _training.value = loadedTraining
+                }
+            }
+        }
         getExercises()
     }
 
@@ -56,14 +68,28 @@ class AddEditTrainingViewModel @Inject constructor(
             is AddEditTrainingEvent.LoadTraining -> {
                 _training.value = event.training
             }
-            is AddEditTrainingEvent.ToggleExerciseSelection -> {
-                val currentExercises = _training.value.exercises.toMutableList()
-                if (currentExercises.any { it.id == event.exercise.id }) {
-                    currentExercises.removeAll { it.id == event.exercise.id }
-                } else {
-                    currentExercises.add(event.exercise)
+            is AddEditTrainingEvent.AddExercise -> {
+                val updatedExercises = _training.value.exercises.toMutableList().apply {
+                    add(event.exercise)
                 }
-                _training.value = _training.value.copy(exercises = currentExercises)
+                _training.value = _training.value.copy(exercises = updatedExercises)
+            }
+            is AddEditTrainingEvent.RemoveExerciseAt -> {
+                val updatedExercises = _training.value.exercises.toMutableList().apply {
+                    if (event.index in indices) {
+                        removeAt(event.index)
+                    }
+                }
+                _training.value = _training.value.copy(exercises = updatedExercises)
+            }
+            is AddEditTrainingEvent.MoveExercise -> {
+                val updatedExercises = _training.value.exercises.toMutableList().apply {
+                    if (event.fromIndex in indices && event.toIndex in indices) {
+                        val exercise = removeAt(event.fromIndex)
+                        add(event.toIndex, exercise)
+                    }
+                }
+                _training.value = _training.value.copy(exercises = updatedExercises)
             }
             AddEditTrainingEvent.ResetForm -> {
                 _training.value = TrainingVM()
