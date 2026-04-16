@@ -1,6 +1,8 @@
 package com.example.muscuapp_vmob_1.ui.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -12,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -20,7 +23,6 @@ import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
 import com.example.muscuapp_vmob_1.ui.views.components.ExerciseListItem
 import com.example.muscuapp_vmob_1.ui.views.components.dialog.ExercisePickerDialog
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditTrainingScreen(
     navController: NavController,
@@ -32,32 +34,38 @@ fun AddEditTrainingScreen(
     var showExercisePicker by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { 
-                    Text(if (trainingState.id == 0) "Créer un entraînement" else "Modifier l'entraînement") 
+    Column()
+
+
+    {
+        Box(
+            Modifier
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+
+            IconButton(
+                onClick = {navController.popBackStack() },
+                modifier = Modifier.align(Alignment.CenterStart)
+            ) {
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            }
+            Text( if (trainingState.id ==0) "Créer un entraînement" else "Modifier l'entraînement",
+                )
+
+            TextButton(  {
+                viewModel.onEvent(AddEditTrainingEvent.SaveTraining)
+                navController.popBackStack()
                 },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Retour")
-                    }
-                },
-                actions = {
-                    TextButton(onClick = {
-                        viewModel.onEvent(AddEditTrainingEvent.SaveTraining)
-                        navController.popBackStack()
-                    }) {
-                        Text("ENREGISTRER", color = Color.Red, fontWeight = FontWeight.Bold)
-                    }
-                }
-            )
+                modifier = Modifier.align(Alignment.CenterEnd)
+            ) {
+                Text("Enregistrer", color = Color.Red, fontWeight = FontWeight.Bold)
+            }
         }
-    ) { padding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
                 .padding(16.dp)
         ) {
             OutlinedTextField(
