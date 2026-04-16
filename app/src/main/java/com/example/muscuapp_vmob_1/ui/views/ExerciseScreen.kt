@@ -33,7 +33,7 @@ import com.example.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEven
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.ExerciseScreenViewModel
 import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
-import com.example.muscuapp_vmob_1.ui.views.components.forms.AddExerciseDialog
+import com.example.muscuapp_vmob_1.ui.views.components.dialog.AddExerciseDialog
 import com.example.muscuapp_vmob_1.ui.views.components.ExerciseCard
 import com.example.muscuapp_vmob_1.ui.views.components.SearchBar
 

@@ -1,17 +1,11 @@
 package com.example.muscuapp_vmob_1.ui.views
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,7 +17,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
 import com.example.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
-import com.example.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
+import com.example.muscuapp_vmob_1.ui.views.components.ExerciseListItem
+import com.example.muscuapp_vmob_1.ui.views.components.dialog.ExercisePickerDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -146,95 +141,4 @@ fun AddEditTrainingScreen(
             }
         )
     }
-}
-
-@Composable
-fun ExerciseListItem(
-    index: Int,
-    exercise: ExerciseVM,
-    onRemove: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF2B2B2B))
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Surface(
-                color = Color.Red,
-                shape = RoundedCornerShape(4.dp),
-                modifier = Modifier.size(24.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Text(
-                        text = (index + 1).toString(),
-                        color = Color.White,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-            
-            Spacer(modifier = Modifier.width(12.dp))
-            
-            Text(
-                text = exercise.name,
-                color = Color.White,
-                modifier = Modifier.weight(1f)
-            )
-            
-            IconButton(onClick = onRemove) {
-                Icon(Icons.Default.Delete, contentDescription = "Supprimer", tint = Color.Gray)
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ExercisePickerDialog(
-    availableExercises: List<ExerciseVM>,
-    onDismiss: () -> Unit,
-    onSelect: (ExerciseVM) -> Unit
-) {
-    var searchQuery by remember { mutableStateOf("") }
-    val filteredExercises = availableExercises.filter { 
-        it.name.contains(searchQuery, ignoreCase = true) 
-    }
-
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        confirmButton = {},
-        title = { Text("Ajouter un exercice") },
-        text = {
-            Column {
-                OutlinedTextField(
-                    value = searchQuery,
-                    onValueChange = { searchQuery = it },
-                    placeholder = { Text("Rechercher...") },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp)
-                )
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                LazyColumn(modifier = Modifier.height(400.dp)) {
-                    itemsIndexed(filteredExercises) { _, exercise ->
-                        ListItem(
-                            headlineContent = { Text(exercise.name) },
-                            modifier = Modifier.clickable { onSelect(exercise) }
-                        )
-                        HorizontalDivider(modifier = Modifier.padding(horizontal = 8.dp), color = Color.Gray.copy(alpha = 0.2f))
-                    }
-                }
-            }
-        }
-    )
 }
