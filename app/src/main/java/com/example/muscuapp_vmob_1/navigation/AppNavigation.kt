@@ -19,6 +19,8 @@ import com.example.muscuapp_vmob_1.ui.views.ListExercise
 import com.example.muscuapp_vmob_1.ui.views.TrainingScreen
 import com.example.muscuapp_vmob_1.ui.views.components.baseApp.AppTopBar
 import com.example.muscuapp_vmob_1.ui.views.components.baseApp.AppBottomBar
+import com.example.muscuapp_vmob_1.ui.views.HomePageScreen
+
 
 @Composable
 fun AppNavigation(){
@@ -37,7 +39,7 @@ fun AppNavigation(){
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                Text("Home")
+                HomePageScreen(innerPaddingValues = innerPadding, navController)
             }
 
             composable(Screen.Exercises.route) {
