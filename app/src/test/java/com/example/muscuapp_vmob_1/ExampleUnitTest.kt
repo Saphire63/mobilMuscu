@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1
+package com.muscuapp_vmob_1
 
 import org.junit.Test
 
