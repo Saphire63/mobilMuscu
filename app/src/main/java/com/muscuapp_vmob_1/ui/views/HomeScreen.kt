@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.muscuapp_vmob_1.navigation.Screen
-import com.muscuapp_vmob_1.ui.viewmodel.TrainingScreenViewModel
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingUiState
 import com.muscuapp_vmob_1.ui.views.components.TrainingCard
 import androidx.compose.foundation.background
@@ -47,6 +46,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
+import com.muscuapp_vmob_1.ui.viewmodel.training.TrainingScreenViewModel
 
 @Composable
 fun HomePageScreen(innerPaddingValues: PaddingValues, navController: NavController) {

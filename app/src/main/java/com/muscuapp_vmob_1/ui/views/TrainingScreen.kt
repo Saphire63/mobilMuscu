@@ -1,4 +1,4 @@
-package com.example.muscuapp_vmob_1.ui.views
+package com.muscuapp_vmob_1.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
