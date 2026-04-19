@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.training.AddEditTrainingViewModel
 import com.muscuapp_vmob_1.ui.views.AddEditTrainingScreen
 import com.muscuapp_vmob_1.ui.views.ListExercise
 import com.muscuapp_vmob_1.ui.views.TrainingScreen

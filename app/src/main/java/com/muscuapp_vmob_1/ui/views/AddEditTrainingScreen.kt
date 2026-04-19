@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
-import com.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.training.AddEditTrainingViewModel
 import com.muscuapp_vmob_1.ui.views.components.ExerciseListItem
 import com.muscuapp_vmob_1.ui.views.components.dialog.ExercisePickerDialog
 

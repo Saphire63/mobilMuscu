@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +24,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
-import com.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.exercise.AddEditExerciseUiEvent
+import com.muscuapp_vmob_1.ui.viewmodel.exercise.AddEditExerciseViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun AddExerciseDialog(
@@ -33,7 +36,18 @@ fun AddExerciseDialog(
 ) {
     val exerciseState = viewModel.exercise.value
 
-    var showValidationError by remember { mutableStateOf(false) }
+
+    //utilisation de l'IA pour comprendre comment attendre que le viewModel ai finis de traiter la donnée.
+    // ici besoin de LaunchedEffect pour attendre le traitement
+    LaunchedEffect( true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                is AddEditExerciseUiEvent.Saved -> {
+                    onSave()
+                }
+            }
+        }
+    }
 
     // État local pour le texte du poids permettre une saisie fluide (ex: "", ".", "10.")
     var weightText by remember(exerciseState.id) {
@@ -60,9 +74,18 @@ fun AddExerciseDialog(
                 OutlinedTextField(
                     value = exerciseState.name,
                     onValueChange = { viewModel.onEvent(AddEditExerciseEvent.EnteredName(it)) },
-                    label = { Text("Nom") },
+                    label = { Text("Nom* ") },
+                    isError = viewModel.nameError.value != null,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
+                viewModel.nameError.value?.let { error ->
+                    Text(
+                        text = error,
+                        color = Color.Red,
+                        fontSize = 12.sp
+                    )
+                }
+
 
                 // Max de poids
                 OutlinedTextField(
@@ -96,29 +119,28 @@ fun AddExerciseDialog(
                         checked = exerciseState.isDone,
                         onCheckedChange = { 
                             viewModel.onEvent(AddEditExerciseEvent.ExerciseDone)
-                            if (exerciseState.isDone) showValidationError = false
                         }
                     )
                 }
 
-                if (showValidationError && !exerciseState.isDone) { 
+                viewModel.doneError.value?.let { error ->
                     Text(
-                        text = "Veuillez cocher 'Terminé' pour enregistrer",
+                        text = error,
                         color = Color.Red,
                         fontSize = 12.sp,
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
+                Text(
+                    text = "* = Obligatoire",
+                    color = Color.LightGray,
+                    fontSize = 8.sp
+                )
             }
         },
         confirmButton = {
             TextButton(onClick = {
-                if (exerciseState.isDone) { 
-                    viewModel.onEvent(AddEditExerciseEvent.SaveExercise)
-                    onSave()
-                } else {
-                    showValidationError = true 
-                }
+                viewModel.onEvent(AddEditExerciseEvent.SaveExercise)
             }) {
                 Text("Enregistrer")
             }

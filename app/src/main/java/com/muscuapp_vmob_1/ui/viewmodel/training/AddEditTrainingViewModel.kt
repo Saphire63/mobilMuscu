@@ -1,17 +1,17 @@
-package com.muscuapp_vmob_1.ui.viewmodel
+package com.muscuapp_vmob_1.ui.viewmodel.training
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.muscuapp_vmob_1.domain.use_cases.exercise.GetExercisesUseCase
 import com.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
 import com.muscuapp_vmob_1.domain.use_cases.training.GetTrainingUseCase
 import com.muscuapp_vmob_1.domain.use_cases.training.UpsertTrainingUseCase
+import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.muscuapp_vmob_1.domain.use_cases.exercise.GetExercisesUseCase
-import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
