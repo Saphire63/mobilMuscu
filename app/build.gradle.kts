@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.muscuapp_vmob_1"
+    namespace = "com.muscuapp_vmob_1"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.muscuapp_vmob_1"
+        applicationId = "com.muscuapp_vmob_1"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

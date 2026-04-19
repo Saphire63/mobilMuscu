@@ -9,7 +9,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
-        android:name=".MuscuApp"
+        android:name="com.muscuapp_vmob_1.MuscuApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MuscuApp_VMob_1">
         <activity
-            android:name=".MainActivity"
+            android:name="com.muscuapp_vmob_1.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MuscuApp_VMob_1">
