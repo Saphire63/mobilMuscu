@@ -1,4 +1,4 @@
-package com.muscuapp_vmob_1.ui.views
+package com.example.muscuapp_vmob_1.ui.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.muscuapp_vmob_1.navigation.Screen
-import com.muscuapp_vmob_1.ui.viewmodel.TrainingScreenViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.training.TrainingScreenViewModel
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingUiState
 import com.muscuapp_vmob_1.ui.views.components.SearchBar
 import com.muscuapp_vmob_1.ui.views.components.TrainingCard

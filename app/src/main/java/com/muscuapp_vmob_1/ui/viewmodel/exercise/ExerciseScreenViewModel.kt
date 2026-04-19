@@ -1,4 +1,5 @@
-package com.muscuapp_vmob_1.ui.viewmodel
+
+package com.muscuapp_vmob_1.ui.viewmodel.exercise
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -59,7 +60,7 @@ class ExerciseScreenViewModel @Inject constructor(
     }
     .stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.Companion.WhileSubscribed(5000),
         initialValue = ExerciseUiState.Loading
     )
 

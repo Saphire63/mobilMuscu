@@ -1,4 +1,5 @@
-package com.muscuapp_vmob_1.ui.viewmodel
+
+package com.muscuapp_vmob_1.ui.viewmodel.exercise
 
 import android.content.Context
 import android.net.Uri
@@ -6,11 +7,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+
+import com.muscuapp_vmob_1.domain.exeptions.ExerciseException
 import com.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
 import com.muscuapp_vmob_1.domain.use_cases.exercise.UpsertExerciseUseCase
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -21,15 +26,29 @@ class AddEditExerciseViewModel @Inject constructor(
     private val upsertExerciseUseCase: UpsertExerciseUseCase,
     @ApplicationContext private val context: Context
 ): ViewModel() {
+
+    // exercise
     private val _exercise = mutableStateOf(ExerciseVM())
     val exercise : State<ExerciseVM> = _exercise
 
-    private val _error = mutableStateOf<Boolean>(false)
-    val error : State<Boolean> = _error
+
+    //error done
+    private val _doneError = mutableStateOf<String?>(null)
+    val doneError : State<String?> = _doneError
+
 
     fun clearError() {
-        _error.value = false
+        _doneError.value = null
+        _nameError.value = null
     }
+
+
+    // name error
+    private val _nameError = mutableStateOf<String?>(null)
+    val nameError: State<String?> = _nameError
+
+    private val _eventFlow = MutableSharedFlow<AddEditExerciseUiEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     fun onEvent(event: AddEditExerciseEvent) {
         when (event) {
@@ -49,12 +68,15 @@ class AddEditExerciseViewModel @Inject constructor(
                 viewModelScope.launch {
                     val internalPath = saveImageToInternalStorage(event.uri)
                     _exercise.value = _exercise.value.copy(imageUri = internalPath)
-                    // On sauvegarde immédiatement pour la carte
                     upsertExerciseUseCase(_exercise.value)
                 }
             }
-            AddEditExerciseEvent.ExerciseDone ->
+            AddEditExerciseEvent.ExerciseDone -> {
                 _exercise.value = _exercise.value.copy(isDone = !_exercise.value.isDone)
+                if (_exercise.value.isDone) {
+                    clearError()
+                }
+            }
 
             is AddEditExerciseEvent.LoadExercise -> {
                 _exercise.value = event.exercise
@@ -62,11 +84,28 @@ class AddEditExerciseViewModel @Inject constructor(
 
             AddEditExerciseEvent.ResetForm -> {
                 _exercise.value = ExerciseVM()
+                clearError()
+
             }
 
             AddEditExerciseEvent.SaveExercise -> {
                 viewModelScope.launch {
-                    upsertExerciseUseCase(_exercise.value)
+                    try {
+                        upsertExerciseUseCase(_exercise.value)
+                        clearError()
+                        _eventFlow.emit(AddEditExerciseUiEvent.Saved)
+                    } catch (e: ExerciseException) {
+                        when (e) {
+                            is ExerciseException.NameEmptyException -> {
+                                _nameError.value = e.message
+                                _doneError.value = null
+                            }
+                            is ExerciseException.NotDoneException -> {
+                                _doneError.value = e.message
+                                _nameError.value = null
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.muscuapp_vmob_1.domain.use_cases.exercise.AddEditExerciseEvent
-import com.muscuapp_vmob_1.ui.viewmodel.AddEditExerciseViewModel
-import com.muscuapp_vmob_1.ui.viewmodel.ExerciseScreenViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.exercise.AddEditExerciseViewModel
+import com.muscuapp_vmob_1.ui.viewmodel.exercise.ExerciseScreenViewModel
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseUiState
 import com.muscuapp_vmob_1.ui.views.components.dialog.AddExerciseDialog
 import com.muscuapp_vmob_1.ui.views.components.ExerciseCard
@@ -148,7 +148,12 @@ fun ListExercise(innerPaddingValues: PaddingValues, navController: NavController
                                 editViewModel.onEvent(AddEditExerciseEvent.LoadExercise(exercise))
                                 editViewModel.onEvent(AddEditExerciseEvent.UpdateImageUri(uri))
                             },
-                            onCalculateCharge = {percent, max -> listViewModel.calculateCharge(percent, max)}
+                            onCalculateCharge = { percent, max ->
+                                listViewModel.calculateCharge(
+                                    percent,
+                                    max
+                                )
+                            }
                         )
                     }
                 }

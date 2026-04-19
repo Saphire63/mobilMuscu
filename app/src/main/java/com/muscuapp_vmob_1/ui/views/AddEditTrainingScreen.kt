@@ -1,5 +1,6 @@
-package com.muscuapp_vmob_1.ui.views
+package com.example.muscuapp_vmob_1.ui.views
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
+import com.muscuapp_vmob_1.ui.viewmodel.training.AddEditTrainingViewModel
+import com.muscuapp_vmob_1.ui.views.components.ExerciseListItem
+import com.muscuapp_vmob_1.ui.views.components.dialog.ExercisePickerDialog
 import com.muscuapp_vmob_1.domain.use_cases.training.AddEditTrainingEvent
 import com.muscuapp_vmob_1.ui.viewmodel.AddEditTrainingViewModel
 import com.muscuapp_vmob_1.ui.views.components.ExerciseListItem
@@ -129,13 +134,7 @@ fun AddEditTrainingScreen(
                         ExerciseListItem(
                             index = index,
                             exercise = exercise,
-                            onRemove = {
-                                viewModel.onEvent(
-                                    AddEditTrainingEvent.RemoveExerciseAt(
-                                        index
-                                    )
-                                )
-                            }
+                            onRemove = { viewModel.onEvent(AddEditTrainingEvent.RemoveExerciseAt(index)) }
                         )
                     }
                 }

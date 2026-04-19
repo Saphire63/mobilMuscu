@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.exercises.ExerciseVM
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExercisePickerDialog(
     availableExercises: List<ExerciseVM>,
