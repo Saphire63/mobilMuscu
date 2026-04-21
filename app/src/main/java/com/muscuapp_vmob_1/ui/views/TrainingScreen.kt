@@ -100,6 +100,8 @@ fun TrainingScreen(innerPadding: PaddingValues, navController: NavController){
 
             is TrainingUiState.Success -> {
                 val trainingList = (trainings as TrainingUiState.Success).trainings
+                val runningTrainingId by trainingViewModel.runningTrainingId.collectAsState()
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -109,6 +111,7 @@ fun TrainingScreen(innerPadding: PaddingValues, navController: NavController){
                     items(trainingList) { training ->
                         TrainingCard(
                             training = training,
+                            isRunning = runningTrainingId == training.id,
                             onDelete = { trainingViewModel.deleteTraining(training) },
                             onEdit = { selectedTraining ->
                                 navController.navigate(
@@ -116,6 +119,9 @@ fun TrainingScreen(innerPadding: PaddingValues, navController: NavController){
                                         selectedTraining.id
                                     )
                                 )
+                            },
+                            onToggleTimer = { context ->
+                                trainingViewModel.toggleTimer(context, training)
                             }
                         )
                     }
