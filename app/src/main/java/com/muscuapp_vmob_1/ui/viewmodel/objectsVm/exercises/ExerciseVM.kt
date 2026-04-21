@@ -20,7 +20,8 @@ data class ExerciseVM (
                 name = exercise.name,
                 max = exercise.max,
                 description = exercise.description,
-                imageUri = exercise.imageUri
+                imageUri = exercise.imageUri,
+                isDone = true
             )
         }
 

@@ -66,9 +66,23 @@ class AddEditExerciseViewModel @Inject constructor(
             }
             is AddEditExerciseEvent.UpdateImageUri -> {
                 viewModelScope.launch {
-                    val internalPath = saveImageToInternalStorage(event.uri)
-                    _exercise.value = _exercise.value.copy(imageUri = internalPath)
-                    upsertExerciseUseCase(_exercise.value)
+                    try {
+                        val internalPath = saveImageToInternalStorage(event.uri)
+                        _exercise.value = _exercise.value.copy(imageUri = internalPath, isDone = true)
+                        upsertExerciseUseCase(_exercise.value)
+                        clearError()
+                    } catch (e: ExerciseException) {
+                        when (e) {
+                            is ExerciseException.NameEmptyException -> {
+                                _nameError.value = e.message
+                            }
+                            is ExerciseException.NotDoneException -> {
+                                _doneError.value = e.message
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
             }
             AddEditExerciseEvent.ExerciseDone -> {
