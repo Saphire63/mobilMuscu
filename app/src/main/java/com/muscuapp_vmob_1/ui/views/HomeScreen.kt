@@ -86,12 +86,14 @@ fun HomePageScreen(innerPaddingValues: PaddingValues, navController: NavControll
                 }
 
                 is TrainingUiState.Success -> {
+                    val runningTrainingId by trainingViewModel.runningTrainingId.collectAsState()
                     // On boucle sur la liste des entraînements
                     state.trainings.forEach { training ->
                         TrainingCard(
                             training = training,
                             dialogTitle = "Désépingler",
                             dialogText = "Voulez-vous désépingler l'entraînement \"${training.name}\" ?",
+                            isRunning = runningTrainingId == training.id,
                             onDelete = { trainingViewModel.unpinTraining(training) },
                             onEdit = { selectedTraining ->
                                 navController.navigate(
@@ -99,6 +101,9 @@ fun HomePageScreen(innerPaddingValues: PaddingValues, navController: NavControll
                                         selectedTraining.id
                                     )
                                 )
+                            },
+                            onToggleTimer = { context ->
+                                trainingViewModel.toggleTimer(context, training)
                             }
                         )
                         // Espace entre chaque carte

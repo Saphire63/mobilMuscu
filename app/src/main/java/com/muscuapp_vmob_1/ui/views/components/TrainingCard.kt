@@ -18,6 +18,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Stop
+import androidx.compose.ui.platform.LocalContext
+import com.muscuapp_vmob_1.data.notifications.TimerService
+import android.content.Intent
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import android.content.Context
 import com.muscuapp_vmob_1.ui.viewmodel.objectsVm.training.TrainingVM
 
 @Composable
@@ -25,8 +37,10 @@ fun TrainingCard(
     training: TrainingVM,
     dialogTitle : String = "Supprimer",
     dialogText : String = "Voulez-vous supprimer l'entraînement \"${training.name}\" ?",
+    isRunning: Boolean = false,
     onDelete: () -> Unit,
-    onEdit: (TrainingVM) -> Unit
+    onEdit: (TrainingVM) -> Unit,
+    onToggleTimer: (Context) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -142,6 +156,45 @@ fun TrainingCard(
                             modifier = Modifier.padding(vertical = 2.dp)
                         )
                     }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                val context = LocalContext.current
+
+                val permissionLauncher = rememberLauncherForActivityResult(
+                    ActivityResultContracts.RequestPermission()
+                ) { isGranted ->
+                    if (isGranted) {
+                        onToggleTimer(context)
+                    }
+                }
+
+                Button(
+                    onClick = {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                                onToggleTimer(context)
+                            } else {
+                                permissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                            }
+                        } else {
+                            onToggleTimer(context)
+                        }
+                    },
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (isRunning) Color.Gray else Color.Red,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Icon(
+                        imageVector = if (isRunning) Icons.Default.Stop else Icons.Default.PlayArrow,
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = if (isRunning) "Arrêter l'entraînement" else "Lancer l'entraînement")
                 }
             }
         }
